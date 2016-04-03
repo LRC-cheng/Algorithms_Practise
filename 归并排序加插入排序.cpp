@@ -1,30 +1,31 @@
+//made by LRC
 #include<iostream>
 #define NUM 1000
-#define TEST1 1		//²âÊÔÊäÈëÇø¼ä;
-#define TEST2 1		//²âÊÔÅÅĞòÇé¿ö£º
+#define TEST1 1		//æµ‹è¯•è¾“å…¥åŒºé—´;
+#define TEST2 1		//æµ‹è¯•æ’åºæƒ…å†µï¼š
 using namespace std;
 
-void MERGE(int[], int, int, int);		//²¢¹éÅÅĞò
-void MERGE_SORT(int[], int, int);		//·ÖÀëÊı¾İ
+void MERGE(int[], int, int, int);		//å¹¶å½’æ’åº
+void MERGE_SORT(int[], int, int);		//åˆ†ç¦»æ•°æ®
 
 int main(){
 	int *Array;
 	Array = new int[NUM];
 	int p = 0, r = -2;
 
-	cout << "--------·ÖÖÎ·¨£º¹é²¢ÅÅĞò¼Ó²åÈëÅÅĞò---------" << endl;
-	cout << "ÇëÊäÈëÅÅĞòÊıÖµ£º" << endl;
+	cout << "--------åˆ†æ²»æ³•ï¼šå½’å¹¶æ’åºåŠ æ’å…¥æ’åº---------" << endl;
+	cout << "è¯·è¾“å…¥æ’åºæ•°å€¼ï¼š" << endl;
 
 	for (int i = 0;; i++){
 		cin >> Array[i];
 		r++;
-		if (cin.fail()){		//µ±ÊäÈëµÄ²»ÊÇÊı×ÖÊ±ÍË³öÊäÈë
+		if (cin.fail()){		//å½“è¾“å…¥çš„ä¸æ˜¯æ•°å­—æ—¶é€€å‡ºè¾“å…¥
 			break;
 		}
 	}
 
 	if (TEST1){
-		cout << "±¾´Î²âÊÔÊı×é´óĞ¡£º" << endl;
+		cout << "æœ¬æ¬¡æµ‹è¯•æ•°ç»„å¤§å°ï¼š" << endl;
 		cout << p << " " << r << endl;
 	}
 
@@ -44,25 +45,25 @@ int main(){
 
 
 
-void MERGE_SORT(int A[], int p, int r){		//·ÖÀëÊı¾İÊ÷
+void MERGE_SORT(int A[], int p, int r){		//åˆ†ç¦»æ•°æ®æ ‘
 	int q;
 	q = (p + r) / 2;
 	if (r - p > 5){
 			if (TEST1) {
-				cout << "×óÇø¼ä: " << p << "  " << q << "  " << endl;  //²âÊÔÊäÈëÇø¼ä
+				cout << "å·¦åŒºé—´: " << p << "  " << q << "  " << endl;  //æµ‹è¯•è¾“å…¥åŒºé—´
 			}
 			MERGE_SORT(A, p, q);
 			if (TEST1){
-				cout << "ÓÒÇø¼ä: " << q + 1 << "  " << r << "  " << endl;	//²âÊÔÊäÈëÇø¼ä
+				cout << "å³åŒºé—´: " << q + 1 << "  " << r << "  " << endl;	//æµ‹è¯•è¾“å…¥åŒºé—´
 			}
 			MERGE_SORT(A, q + 1, r);
 		}
-	 MERGE(A, p, q, r);	//ÅÅĞò
+	 MERGE(A, p, q, r);	//æ’åº
 	}
 
-void MERGE(int A[], int p, int q, int r){		//ÅÅĞò
+void MERGE(int A[], int p, int q, int r){		//æ’åº
 	if (r - p > 5){
-		int n1, n2, i = 0, j = 0, k;		//µ±p=0,q=4,r=9Ê±
+		int n1, n2, i = 0, j = 0, k;		//å½“p=0,q=4,r=9æ—¶
 		int *L, *R;
 		L = new int[NUM];
 		R = new int[NUM];
@@ -71,18 +72,18 @@ void MERGE(int A[], int p, int q, int r){		//ÅÅĞò
 		n2 = r - q;				//n2=5
 
 		for (i = 0; i < n1; i++){
-			L[i] = A[p + i];		//A[0]¿ªÊ¼µ½A[4]¸³¸ø×ó±ßÊı×éL[0]µ½L[4]
+			L[i] = A[p + i];		//A[0]å¼€å§‹åˆ°A[4]èµ‹ç»™å·¦è¾¹æ•°ç»„L[0]åˆ°L[4]
 		}
 		for (j = 0; j < n2; j++){
-			R[j] = A[q + j + 1];	//A[5]¿ªÊ¼µ½A[9]¸³¸øÓÒ±ßÊı×éR[0]µ½L[4]
+			R[j] = A[q + j + 1];	//A[5]å¼€å§‹åˆ°A[9]èµ‹ç»™å³è¾¹æ•°ç»„R[0]åˆ°L[4]
 		}
 
-		L[n1] = 99999999;			//ÉèÖÃÉÚ±ø
-		R[n2] = 99999999;			//ÉèÖÃÉÚ±ø
+		L[n1] = 99999999;			//è®¾ç½®å“¨å…µ
+		R[n2] = 99999999;			//è®¾ç½®å“¨å…µ
 
 		i = j = 0;
-		for (k = p; k <= r; k++){	//k=p=0,r=9,Ê¹Ê®¸öÊı¶¼ÅÅÁĞµ½A[]ÖĞ
-			if (L[i] <= R[j]){	//µ±L[i]±ÈR[j]Ğ¡Ê±£¬°ÑL[i]·Åµ½A[K]ÖĞ£¬·´Ö®ÒàÈ»
+		for (k = p; k <= r; k++){	//k=p=0,r=9,ä½¿åä¸ªæ•°éƒ½æ’åˆ—åˆ°A[]ä¸­
+			if (L[i] <= R[j]){	//å½“L[i]æ¯”R[j]å°æ—¶ï¼ŒæŠŠL[i]æ”¾åˆ°A[K]ä¸­ï¼Œåä¹‹äº¦ç„¶
 				A[k] = L[i];
 				i++;
 			}
@@ -92,19 +93,19 @@ void MERGE(int A[], int p, int q, int r){		//ÅÅĞò
 			}
 		}
 
-		//²âÊÔÅÅĞòÇé¿ö£º
+		//æµ‹è¯•æ’åºæƒ…å†µï¼š
 		if (TEST2){
 			cout << endl;
-			cout << "²âÊÔ²¢¹éÅÅĞòÇé¿ö£º" << endl;
+			cout << "æµ‹è¯•å¹¶å½’æ’åºæƒ…å†µï¼š" << endl;
 			for (i = 0; i < k; i++){
 				cout << A[i] << "   ";
 			}
 			cout << endl;
 		}
-		delete[]L;	//ÊÍ·Å¿Õ¼ä
+		delete[]L;	//é‡Šæ”¾ç©ºé—´
 		delete[]R;
 	}
-	else{						//²åÈëÅÅĞò
+	else{						//æ’å…¥æ’åº
 		int temp, i;
 //		cout <<"test:"<< p << "  " << r;
 		for (int j=p+1; j <= r; j++){
@@ -118,7 +119,7 @@ void MERGE(int A[], int p, int q, int r){		//ÅÅĞò
 		}
 		if (TEST2){
 			cout << endl;
-			cout << "²âÊÔ²åÈëÅÅĞòÇé¿ö£º" << endl;
+			cout << "æµ‹è¯•æ’å…¥æ’åºæƒ…å†µï¼š" << endl;
 			for (i = 0; i <= r; i++){
 				cout << A[i] << "   ";
 			}
@@ -126,4 +127,4 @@ void MERGE(int A[], int p, int q, int r){		//ÅÅĞò
 		}
 	}
 }
-//²âÊÔÊı¾İ 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
+//æµ‹è¯•æ•°æ® 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
