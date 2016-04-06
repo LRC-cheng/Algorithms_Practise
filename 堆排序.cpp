@@ -16,11 +16,11 @@ inline int RIGHT(int);
 int main(){
 	int *A;
 	A = new int[NUM];
-	cout << "------------¶ÑÅÅĞò-------------" << endl;
+	cout << "------------å †æ’åº-------------" << endl;
 	for (int i = 0;; i++){
 		cin >> A[i];
 		A_length++;
-		if (cin.fail()){		//µ±ÊäÈëµÄ²»ÊÇÊı×ÖÊ±ÍË³öÊäÈë
+		if (cin.fail()){		//å½“è¾“å…¥çš„ä¸æ˜¯æ•°å­—æ—¶é€€å‡ºè¾“å…¥
 			break;
 		}
 	}
@@ -36,27 +36,27 @@ int main(){
 	return 0;
 }
 
-void HEAPSORT(int A[]){		//¶ÑÅÅĞò
-	BUILD_MAX_HEAP(A);			//½¨¶Ñ
+void HEAPSORT(int A[]){		//å †æ’åº
+	BUILD_MAX_HEAP(A);			//å»ºå †
 	int temp;
 	for (int i = A_length; i > 0; i--){
-		temp = A[0];				//ÓëÊ÷¸ù£¨µÚÒ»¸öÊı¾İ£©½»»»
+		temp = A[0];				//ä¸æ ‘æ ¹ï¼ˆç¬¬ä¸€ä¸ªæ•°æ®ï¼‰äº¤æ¢
 		A[0] = A[i];
 		A[i] = temp;
 
 		A_Heap_Size--;
-		MAX_HEAPIFY(A, 0);		//Î¬»¤¶Ñ
+		MAX_HEAPIFY(A, 0);		//ç»´æŠ¤å †
 	}
 }
 
-void BUILD_MAX_HEAP(int A[]){		//½¨¶Ñ
+void BUILD_MAX_HEAP(int A[]){		//å»ºå †
 	A_Heap_Size = A_length;
 	for (int i = A_length / 2; i >= 0; i--){
 		MAX_HEAPIFY(A, i);
 	}
 }
 
-void MAX_HEAPIFY(int A[],int i){		//Î¬»¤¶ÑĞÔÖÊ
+void MAX_HEAPIFY(int A[],int i){		//ç»´æŠ¤å †æ€§è´¨
 	int temp;
 	int l = LEFT(i);
 	int r = RIGHT(i);
@@ -77,12 +77,12 @@ void MAX_HEAPIFY(int A[],int i){		//Î¬»¤¶ÑĞÔÖÊ
 	}
 }
 
-int PARENT(int i){	//¸¸½áµã
+int PARENT(int i){	//çˆ¶ç»“ç‚¹
 	return (i-1) / 2;
 }
-int LEFT(int i){		//×óº¢×ÓÏÂ±ê
+int LEFT(int i){		//å·¦å­©å­ä¸‹æ ‡
 	return i * 2+1;
 }
-int RIGHT(int i){		//ÓÒº¢×ÓÏÂ±ê
+int RIGHT(int i){		//å³å­©å­ä¸‹æ ‡
 	return 2 * i+2;
 }
