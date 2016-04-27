@@ -1,13 +1,14 @@
+/*created by LRC-cheng*/
 #include<iostream>
 using namespace std;
 
-void COUNTING_SORT(int[], int[], int);		//¼ÆÊıÅÅĞò£¬³õÊ¼Öµ£ºÊı×éA[],B[],CµÄÏÂ±êk
-int l;									//Êı×éAµÄÏÂ±ê
+void COUNTING_SORT(int[], int[], int);		//è®¡æ•°æ’åºï¼Œåˆå§‹å€¼ï¼šæ•°ç»„A[],B[],Cçš„ä¸‹æ ‡k
+int l;									//æ•°ç»„Açš„ä¸‹æ ‡
 
 int main(){
 	int A[8] = { 2, 5, 3, 0, 2, 4, 1, 3 }, B[8] = {0};
-	cout << "==================¼ÆÊıÅÅĞò==================" << endl;
-	cout << "ÇëÊäÈëÅÅĞòÊı¾İ£º" << endl;
+	cout << "==================è®¡æ•°æ’åº==================" << endl;
+	cout << "è¯·è¾“å…¥æ’åºæ•°æ®ï¼š" << endl;
 	l = 7;
 	for (int i = 0; i < 8; i++){
 		cout << A[i] << "  ";
@@ -23,21 +24,21 @@ int main(){
 	return 0;
 }
 
-void COUNTING_SORT(int A[], int B[], int k){		//¼ÆÊıÅÅĞò£¬³õÊ¼Öµ£ºÊı×éA[],B[],CµÄÏÂ±êk
+void COUNTING_SORT(int A[], int B[], int k){		//è®¡æ•°æ’åºï¼Œåˆå§‹å€¼ï¼šæ•°ç»„A[],B[],Cçš„ä¸‹æ ‡k
 	int *C;
 	C = new int[k];
-	for (int i = 0; i < k; i++){		//³õÊ¼»¯Êı×éC
+	for (int i = 0; i < k; i++){		//åˆå§‹åŒ–æ•°ç»„C
 		C[i] = 0;
 	}
-	for (int j = 0; j <= l; j++){		//¼ÆËãÊı¾İ¸öÊı
+	for (int j = 0; j <= l; j++){		//è®¡ç®—æ•°æ®ä¸ªæ•°
 		C[A[j]] = C[A[j]] + 1;
 	}
-	for (int i = 1; i < k; i++){		//¼ÆËãÆäĞòºÅ
+	for (int i = 1; i < k; i++){		//è®¡ç®—å…¶åºå·
 		C[i] = C[i] + C[i - 1];
 	}
 	for (int j = l; j >= 0; j--){
-		C[A[j]] = C[A[j]] - 1;		//C[A[j]]ÎªA[j]ÔÚÊä³öÊı×éµÄÎ»ÖÃ
-		B[C[A[j]]] = A[j];		//°ÑA[j]Êä³öµ½BÖĞ
+		C[A[j]] = C[A[j]] - 1;		//C[A[j]]ä¸ºA[j]åœ¨è¾“å‡ºæ•°ç»„çš„ä½ç½®
+		B[C[A[j]]] = A[j];		//æŠŠA[j]è¾“å‡ºåˆ°Bä¸­
 	}
 
 	delete[]C;
