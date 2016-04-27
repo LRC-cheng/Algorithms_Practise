@@ -1,31 +1,32 @@
+/*created by LRC-cheng*/
 #include<iostream>
 #include<string>
 #define MAXSIZE 10
 using namespace std;
 
-typedef struct{					//Õ»µÄ´æ´¢½á¹¹
+typedef struct{					//æ ˆçš„å­˜å‚¨ç»“æ„
 	int *base;
 	int *top;
 	int stacksize;
 }SqStack;
 
-typedef struct {					//¶ÓÁĞµÄ´æ´¢½á¹¹
+typedef struct {					//é˜Ÿåˆ—çš„å­˜å‚¨ç»“æ„
 	int *base;
 	int front;
 	int rear;
 }SqQueue;
 
-int InitStack(SqStack &);			//³õÊ¼»¯Õ»
-bool StackEmpty(SqStack &);			//ÅĞ¶ÏÊÇ·ñÎª¿ÕÕ»
-bool Push(SqStack &, int);			//ÈëÕ»
-bool Pop(SqStack &, int &);		//³öÕ»
-int GetTop(SqStack &, int &);		//È¡Õ»¶¥
+int InitStack(SqStack &);			//åˆå§‹åŒ–æ ˆ
+bool StackEmpty(SqStack &);			//åˆ¤æ–­æ˜¯å¦ä¸ºç©ºæ ˆ
+bool Push(SqStack &, int);			//å…¥æ ˆ
+bool Pop(SqStack &, int &);		//å‡ºæ ˆ
+int GetTop(SqStack &, int &);		//å–æ ˆé¡¶
 
-int InitQueue(SqQueue &);			//³õÊ¼»¯¶ÓÁĞ
-int EnQueue(SqQueue &, int);		//Èë¶Ó
-int QueueLength(SqQueue);			//Çó¶Ó³¤¶È
-int DeQueue(SqQueue &, int &);		//³ö¶Ó
-int GetHead(SqQueue);				//È¡¶ÓÍ·
+int InitQueue(SqQueue &);			//åˆå§‹åŒ–é˜Ÿåˆ—
+int EnQueue(SqQueue &, int);		//å…¥é˜Ÿ
+int QueueLength(SqQueue);			//æ±‚é˜Ÿé•¿åº¦
+int DeQueue(SqQueue &, int &);		//å‡ºé˜Ÿ
+int GetHead(SqQueue);				//å–é˜Ÿå¤´
 
 void testqueue();
 void teststack();
@@ -37,30 +38,30 @@ int main(){
 	return 0;
 }
 
-int InitStack(SqStack &S){			//³õÊ¼»¯Õ»
+int InitStack(SqStack &S){			//åˆå§‹åŒ–æ ˆ
 	S.base = new int[MAXSIZE];
 	if (!S.base)
-		exit(OVERFLOW);			//´æ´¢·ÖÅäÊ§°Ü
+		exit(OVERFLOW);			//å­˜å‚¨åˆ†é…å¤±è´¥
 	S.top = S.base ;
 	S.stacksize = MAXSIZE;
 	return 0;
 }
-bool StackEmpty(SqStack &S){		//ÅĞ¶ÏÊÇ·ñÎª¿ÕÕ»
+bool StackEmpty(SqStack &S){		//åˆ¤æ–­æ˜¯å¦ä¸ºç©ºæ ˆ
 	if (S.top == S.base)
 		return true;
 	else return false;
 }
 
-bool Push(SqStack &S, int e){		//ÈëÕ»
+bool Push(SqStack &S, int e){		//å…¥æ ˆ
 	if (S.top - S.base == S.stacksize) {
-		cout << "ÂúÕ»£¬ÈëÕ»Ê§°Ü£¡"<<endl;
+		cout << "æ»¡æ ˆï¼Œå…¥æ ˆå¤±è´¥ï¼"<<endl;
 		return false;
 	}
 	*S.top ++= e;
 	return true;
 }
 
-bool Pop(SqStack &S, int & e){		//³öÕ»
+bool Pop(SqStack &S, int & e){		//å‡ºæ ˆ
 	if (StackEmpty(S)){
 		cout << "ERROR" << endl;
 		return false;
@@ -71,13 +72,13 @@ bool Pop(SqStack &S, int & e){		//³öÕ»
 	}
 }
 
-int GetTop(SqStack &S, int &e){		//È¡Õ»¶¥
+int GetTop(SqStack &S, int &e){		//å–æ ˆé¡¶
 	if (S.top != S.base)
 		return *(S.top - 1);
 }
 
 void teststack(){
-	cout << "-------------Õ»-------------" << endl;
+	cout << "-------------æ ˆ-------------" << endl;
 	SqStack S;
 	int x;
 	InitStack(S);
@@ -85,19 +86,19 @@ void teststack(){
 	for (int i = 0; i < 11; i++){
 		Push(S, i);
 	}
-	cout << "Õ»¶¥£º" << GetTop(S, x) << endl;
+	cout << "æ ˆé¡¶ï¼š" << GetTop(S, x) << endl;
 	for (int i = 0; i < 5; i++){
 		if (Pop(S, x))
-			cout << "³öÕ»ÔªËØÊÇ£º" << x << endl;
+			cout << "å‡ºæ ˆå…ƒç´ æ˜¯ï¼š" << x << endl;
 	}
-	cout << "Õ»¶¥£º" << GetTop(S, x) << endl;
+	cout << "æ ˆé¡¶ï¼š" << GetTop(S, x) << endl;
 	if (StackEmpty(S))
 		cout << "true" << endl;
 	else
 		cout << "false" << endl;
 }
 
-int InitQueue(SqQueue &Q){			//³õÊ¼»¯¶ÓÁĞ
+int InitQueue(SqQueue &Q){			//åˆå§‹åŒ–é˜Ÿåˆ—
 	Q.base = new int[MAXSIZE];
 	if (!Q.base)
 		exit(OVERFLOW);
@@ -105,11 +106,11 @@ int InitQueue(SqQueue &Q){			//³õÊ¼»¯¶ÓÁĞ
 	return 0;
 }
 
-int QueueLength(SqQueue Q){			//Çó¶Ó³¤¶È
+int QueueLength(SqQueue Q){			//æ±‚é˜Ÿé•¿åº¦
 	return (Q.rear - Q.front + MAXSIZE) % MAXSIZE;
 }
 
-int EnQueue(SqQueue &Q, int e){		//Èë¶Ó
+int EnQueue(SqQueue &Q, int e){		//å…¥é˜Ÿ
 	if ((Q.rear + 1) % MAXSIZE == Q.front){
 		cout << "ERROR!";
 		return 0;
@@ -119,7 +120,7 @@ int EnQueue(SqQueue &Q, int e){		//Èë¶Ó
 	return 0;
 }
 
-int DeQueue(SqQueue &Q, int &e){	//³ö¶Ó
+int DeQueue(SqQueue &Q, int &e){	//å‡ºé˜Ÿ
 	if (Q.front == Q.rear){
 		cout << "ERROR!" << endl;
 		return 0;
@@ -128,24 +129,24 @@ int DeQueue(SqQueue &Q, int &e){	//³ö¶Ó
 	Q.front = (Q.front + 1) % MAXSIZE;
 	return 1;
 }
-int GetHead(SqQueue Q){			//È¡¶ÓÍ·
+int GetHead(SqQueue Q){			//å–é˜Ÿå¤´
 	if (Q.front != Q.rear)
 		return Q.base[Q.front];
 }
 
 void testqueue(){
-	cout << "------------¶ÓÁĞ------------" << endl;
+	cout << "------------é˜Ÿåˆ—------------" << endl;
 	SqQueue Q;
 	int x;
 	InitQueue(Q);
 	for (int i = 0; i < 10; i++){
 		EnQueue(Q, 2*i);
 	}
-	cout << "¶ÓÁĞ³¤¶È£º" << QueueLength(Q) << endl;
-	cout << "¶ÓÍ·ÔªËØ£º" << GetHead(Q) << endl;
+	cout << "é˜Ÿåˆ—é•¿åº¦ï¼š" << QueueLength(Q) << endl;
+	cout << "é˜Ÿå¤´å…ƒç´ ï¼š" << GetHead(Q) << endl;
 	for (int i = 0; i < 10; i++){
 		if (DeQueue(Q, x))
-			cout << "³ö¶ÓÔªËØ£º" << x << endl;
+			cout << "å‡ºé˜Ÿå…ƒç´ ï¼š" << x << endl;
 	}
 
 }
