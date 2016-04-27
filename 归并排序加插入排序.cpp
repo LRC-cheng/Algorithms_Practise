@@ -1,4 +1,4 @@
-//made by LRC
+/*created by LRC-cheng*/
 #include<iostream>
 #define NUM 1000
 #define TEST1 1		//测试输入区间;
