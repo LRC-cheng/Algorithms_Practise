@@ -1,31 +1,32 @@
+/*created by LRC-cheng*/
 #include<iostream>
 #define NUM 50
 using namespace std;
 
-int PARTITION(int[], int, int);		//»®·Ö
+int PARTITION(int[], int, int);		//åˆ’åˆ†
 int SELECT(int[], int, int, int);
 
 int main(){
-	cout << "===============Ñ¡ÔñËã·¨=============" << endl;
-	cout << "ÇëÊäÈëÊıÖµ£º" << endl;
+	cout << "===============é€‰æ‹©ç®—æ³•=============" << endl;
+	cout << "è¯·è¾“å…¥æ•°å€¼ï¼š" << endl;
 	int *A;
 	int z,x;
 	A = new int[NUM];
-	int p = 0, r = -2;		//rÎªÊı×éÏÂ±ê
+	int p = 0, r = -2;		//rä¸ºæ•°ç»„ä¸‹æ ‡
 
 	for (int i = 0;; i++){
 		cin >> A[i];
 		r++;
-		if (cin.fail()){		//µ±ÊäÈëµÄ²»ÊÇÊı×ÖÊ±ÍË³öÊäÈë,µ«´íÎóÊı¾İ»¹ÔÚ»º³åÇø£¡
+		if (cin.fail()){		//å½“è¾“å…¥çš„ä¸æ˜¯æ•°å­—æ—¶é€€å‡ºè¾“å…¥,ä½†é”™è¯¯æ•°æ®è¿˜åœ¨ç¼“å†²åŒºï¼
 			break;
 		}
 	}
-	cin.clear();		//ÖØÖÃ´íÎóÊäÈë
-	cin.sync();		//Çå¿Õ»º³åÇø  
-	cout << "ÒªÕÒµÄÔªËØĞò£º";
+	cin.clear();		//é‡ç½®é”™è¯¯è¾“å…¥
+	cin.sync();		//æ¸…ç©ºç¼“å†²åŒº  
+	cout << "è¦æ‰¾çš„å…ƒç´ åºï¼š";
 	cin >> z;
 	x = SELECT(A, p, r, z);
-	cout << "½á¹ûÎª£º" << x << endl;
+	cout << "ç»“æœä¸ºï¼š" << x << endl;
 
 	delete[]A;
 	system("pause");
@@ -37,7 +38,7 @@ int PARTITION(int A[], int p, int r){
 	x = A[r];
 	i = p - 1;
 	for (int j = p; j <= r - 1; j++){
-		if (A[j] <= x){				//A[j]<=A[r]Ê±£¬°ÑA[j]ÒÆµ½pÇ°Ò»¸ñ,ĞŞ¸Ä·ûºÅ¼´¿É¸Ä±äÉı½µĞò
+		if (A[j] <= x){				//A[j]<=A[r]æ—¶ï¼ŒæŠŠA[j]ç§»åˆ°på‰ä¸€æ ¼,ä¿®æ”¹ç¬¦å·å³å¯æ”¹å˜å‡é™åº
 			i++;
 			temp = A[i];
 			A[i] = A[j];
@@ -51,7 +52,7 @@ int PARTITION(int A[], int p, int r){
 	return i + 1;
 }
 
-int SELECT(int A[], int p, int r, int i){	//Ñ¡ÔñÊı¾İ
+int SELECT(int A[], int p, int r, int i){	//é€‰æ‹©æ•°æ®
 	int q, k;
 	if (p == r)
 		return A[p];
