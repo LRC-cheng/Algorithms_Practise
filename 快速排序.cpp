@@ -1,3 +1,4 @@
+/*created by LRC-cheng*/
 #include<iostream>
 #define NUM 1000
 using namespace std;
@@ -6,23 +7,23 @@ void QUICKSORT(int[], int, int);
 int PARTITION(int[], int, int);
 
 int main(){
-	cout << "=================¿ìËÙÅÅĞò================" << endl;
-	cout << "ÇëÊäÈëÅÅĞòÊıÖµ£º" << endl;
+	cout << "=================å¿«é€Ÿæ’åº================" << endl;
+	cout << "è¯·è¾“å…¥æ’åºæ•°å€¼ï¼š" << endl;
 	int *A;
 	A = new int[NUM];
-	int p = 0, r = -2;		//rÎªÊı×éÏÂ±ê
+	int p = 0, r = -2;		//rä¸ºæ•°ç»„ä¸‹æ ‡
 
 	for (int i = 0;; i++){
 		cin >> A[i];
 		r++;
-		if (cin.fail()){		//µ±ÊäÈëµÄ²»ÊÇÊı×ÖÊ±ÍË³öÊäÈë
+		if (cin.fail()){		//å½“è¾“å…¥çš„ä¸æ˜¯æ•°å­—æ—¶é€€å‡ºè¾“å…¥
 			break;
 		}
 	}
-	QUICKSORT(A, p, r);		//¿ìËÙÅÅĞò
+	QUICKSORT(A, p, r);		//å¿«é€Ÿæ’åº
 
 
-	cout <<"-------------------------------------------"<< endl;	//Êä³ö
+	cout <<"-------------------------------------------"<< endl;	//è¾“å‡º
 	for (int i = 0; i < r + 1; i++){
 		cout << A[i] << "  ";
 	}
@@ -40,8 +41,8 @@ void QUICKSORT(int A[], int p, int r){
 	int q;
 	if (p < r){
 		q = PARTITION(A, p, r);
-		QUICKSORT(A, p, q - 1);	//·Ö×é£¬qÊÇÖĞ¼äÖµ£¬²»ÓÃÔÙÅÅ
-		QUICKSORT(A, q + 1, r);	//·Ö×é
+		QUICKSORT(A, p, q - 1);	//åˆ†ç»„ï¼Œqæ˜¯ä¸­é—´å€¼ï¼Œä¸ç”¨å†æ’
+		QUICKSORT(A, q + 1, r);	//åˆ†ç»„
 	}
 }
 
@@ -50,7 +51,7 @@ int PARTITION(int A[], int p, int r){
 	x = A[r];
 	i = p - 1;
 	for (int j = p; j <= r - 1; j++){
-		if (A[j] <= x){				//A[j]<=A[r]Ê±£¬°ÑA[j]ÒÆµ½pÇ°Ò»¸ñ,ĞŞ¸Ä·ûºÅ¼´¿É¸Ä±äÉı½µĞò
+		if (A[j] <= x){				//A[j]<=A[r]æ—¶ï¼ŒæŠŠA[j]ç§»åˆ°på‰ä¸€æ ¼,ä¿®æ”¹ç¬¦å·å³å¯æ”¹å˜å‡é™åº
 			i++;
 			temp = A[i];
 			A[i] = A[j];
