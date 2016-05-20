@@ -5,11 +5,11 @@ using namespace std;
 
 int main(){
 	int n;
-	cout << "----------------Strassen¾ØÕó³Ë·¨ÔËËã------------------" << endl;
-	cout << "ÇëÊäÈë·½Õó¹æÄ££¨n=2^x£©£º" << endl;
+	cout << "----------------StrassençŸ©é˜µä¹˜æ³•è¿ç®—------------------" << endl;
+	cout << "è¯·è¾“å…¥æ–¹é˜µè§„æ¨¡ï¼ˆn=2^xï¼‰ï¼š" << endl;
 	cin >> n;
 	int **A, **B, **C;
-	//¶¯Ì¬ÉêÇë¶şÎ¬Êı×é
+	//åŠ¨æ€ç”³è¯·äºŒç»´æ•°ç»„
 	A = new int *[SIZE];
 	B = new int *[SIZE];
 	C = new int *[SIZE];			
@@ -19,31 +19,31 @@ int main(){
 		C[i] = new int[SIZE];
 	}
 
-	cout << "ÇëÊäÈë¾ØÕóA£º" << endl;
-	for (int i = 0; i < n; i++){				//ÊäÈë¾ØÕóA
+	cout << "è¯·è¾“å…¥çŸ©é˜µAï¼š" << endl;
+	for (int i = 0; i < n; i++){				//è¾“å…¥çŸ©é˜µA
 		for (int j = 0; j < n; j++){
 			cin >> A[i][j];
 		}
 	}
-	cout << "ÇëÊäÈë¾ØÕóB£º" << endl;
-	for (int i = 0; i < n; i++){				//ÊäÈë¾ØÕóA
+	cout << "è¯·è¾“å…¥çŸ©é˜µBï¼š" << endl;
+	for (int i = 0; i < n; i++){				//è¾“å…¥çŸ©é˜µA
 		for (int j = 0; j < n; j++){
 			cin >> B[i][j];
 		}
 	}
 
-	system("cls");	//ÇåÆÁ
+	system("cls");	//æ¸…å±
 
-	cout << "±¾´Î¼ÆËãµÄ¾ØÕóA£º" << endl;
-	for (int i = 0; i < n; i++){				//ÏÔÊ¾¾ØÕóA
+	cout << "æœ¬æ¬¡è®¡ç®—çš„çŸ©é˜µAï¼š" << endl;
+	for (int i = 0; i < n; i++){				//æ˜¾ç¤ºçŸ©é˜µA
 		for (int j = 0; j < n; j++){
 			cout << A[i][j] << "\t";
 		}
 		cout << endl;
 	}
 	cout << endl;
-	cout << "±¾´Î¼ÆËãµÄ¾ØÕóB£º" << endl;
-	for (int i = 0; i < n; i++){				//ÏÔÊ¾¾ØÕóB
+	cout << "æœ¬æ¬¡è®¡ç®—çš„çŸ©é˜µBï¼š" << endl;
+	for (int i = 0; i < n; i++){				//æ˜¾ç¤ºçŸ©é˜µB
 		for (int j = 0; j < n; j++){
 			cout << B[i][j] << "\t";
 		}
@@ -55,7 +55,7 @@ int main(){
 
 	Strassen(A, B, C, n);
 
-	cout << "½á¹ûÎª£º" << endl;
+	cout << "ç»“æœä¸ºï¼š" << endl;
 	for (int i = 0; i < n; i++){
 		for (int j = 0; j < n; j++){
 			cout << C[i][j] << "\t";
