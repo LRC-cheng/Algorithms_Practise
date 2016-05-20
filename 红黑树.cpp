@@ -5,7 +5,7 @@ using namespace std;
 #define RED "Red"
 #define BLACK "Black"
 #define NIL 0
-//ºìºÚÊ÷µÄÈı²æÁ´±í´æ´¢½á¹¹
+//çº¢é»‘æ ‘çš„ä¸‰å‰é“¾è¡¨å­˜å‚¨ç»“æ„
 typedef short Other;
 typedef struct{
 	string Color;
@@ -17,22 +17,22 @@ typedef struct RBTNode{
 	struct RBTNode *left, *right, *parent;
 }RBTNode, *RBTree;
 
-void CreatBSTree(RBTree &);					//½¨Á¢ºìºÚÊ÷
-void InsertTree(RBTree &, TreeData);			//²åÈëÊı¾İ£¨ÔÊĞíÊı¾İÖØ¸´£©
-void RBInsertFixUp(RBTree &, RBTree);		//²åÈëÊı¾İºóÎ¬»¤¹¤×÷
-void Transplant(RBTree &, RBTree, RBTree);	//ÒÆ¶¯×ÓÊ÷
-void LeftRotate(RBTree &, RBTree);			//×óĞı
-void RightRotate(RBTree &, RBTree);			//ÓÒĞı
-int Delete(RBTree &, int);					//É¾³ıÊı¾İ½áµã 
-void RBDeleteFixUp(RBTree &, RBTree);		//É¾³ıÊı¾İºóÎ¬»¤¹¤×÷
-RBTree Minimum(RBTree);			//ÕÒ×îĞ¡Öµ
-RBTree Maximum(RBTree);			//ÕÒ×î´óÖµ
-RBTree Search(RBTree, int);			//ËÑË÷½áµã
-RBTree Successor(RBTree);			//Ñ°ÕÒºó¼Ì
-RBTree Predecessor(RBTree);			//Ñ°ÕÒÇ°Çı
-void InOrderTraverse(RBTree);		//ÖĞĞò±éÀúÊ÷£¨ÓÉĞ¡µ½´óÅÅÁĞÊä³ö£©
-void PostOrderTraverse(RBTree);		//ºóĞò±éÀú
-void test(RBTree);					//²âÊÔ¹¦ÄÜ
+void CreatBSTree(RBTree &);					//å»ºç«‹çº¢é»‘æ ‘
+void InsertTree(RBTree &, TreeData);			//æ’å…¥æ•°æ®ï¼ˆå…è®¸æ•°æ®é‡å¤ï¼‰
+void RBInsertFixUp(RBTree &, RBTree);		//æ’å…¥æ•°æ®åç»´æŠ¤å·¥ä½œ
+void Transplant(RBTree &, RBTree, RBTree);	//ç§»åŠ¨å­æ ‘
+void LeftRotate(RBTree &, RBTree);			//å·¦æ—‹
+void RightRotate(RBTree &, RBTree);			//å³æ—‹
+int Delete(RBTree &, int);					//åˆ é™¤æ•°æ®ç»“ç‚¹ 
+void RBDeleteFixUp(RBTree &, RBTree);		//åˆ é™¤æ•°æ®åç»´æŠ¤å·¥ä½œ
+RBTree Minimum(RBTree);			//æ‰¾æœ€å°å€¼
+RBTree Maximum(RBTree);			//æ‰¾æœ€å¤§å€¼
+RBTree Search(RBTree, int);			//æœç´¢ç»“ç‚¹
+RBTree Successor(RBTree);			//å¯»æ‰¾åç»§
+RBTree Predecessor(RBTree);			//å¯»æ‰¾å‰é©±
+void InOrderTraverse(RBTree);		//ä¸­åºéå†æ ‘ï¼ˆç”±å°åˆ°å¤§æ’åˆ—è¾“å‡ºï¼‰
+void PostOrderTraverse(RBTree);		//ååºéå†
+void test(RBTree);					//æµ‹è¯•åŠŸèƒ½
 
 const RBTree Nil = new RBTNode;
 
@@ -43,7 +43,7 @@ int main(){
 	RBTree T ;
 	T = Nil;
 	T->parent = Nil;
-/*------------³õÊ¼»¯¹¤×÷Íê±Ï-------------*/
+/*------------åˆå§‹åŒ–å·¥ä½œå®Œæ¯•-------------*/
 	CreatBSTree(T);
 	test(T);
 	cout << endl;
@@ -51,7 +51,7 @@ int main(){
 	return 0;
 }
 
-//½¨Á¢ºìºÚÊ÷
+//å»ºç«‹çº¢é»‘æ ‘
 void CreatBSTree(RBTree &T){
 	TreeData e;
 	e.Color = RED;
@@ -66,7 +66,7 @@ void CreatBSTree(RBTree &T){
 	}
 }
 
-//É¾³ıÊı¾İ½áµã 
+//åˆ é™¤æ•°æ®ç»“ç‚¹ 
 int Delete(RBTree &T, int e){
 	RBTree z = new RBTNode;
 	z = Search(T, e);
@@ -75,21 +75,21 @@ int Delete(RBTree &T, int e){
 	}
 	RBTree y = z, x;
 	TreeData q;
-	q.Color = y->data.Color;			//¼ÇÂ¼yµÄÔ­É«(ÕâÀïÆäÊµ¼ÇÂ¼µÄÊÇzµÄÑÕÉ«)
-	if (z->left == Nil){				//×ó¿Õ£¬ÓÒÊ÷½ÓÉÏ
+	q.Color = y->data.Color;			//è®°å½•yçš„åŸè‰²(è¿™é‡Œå…¶å®è®°å½•çš„æ˜¯zçš„é¢œè‰²)
+	if (z->left == Nil){				//å·¦ç©ºï¼Œå³æ ‘æ¥ä¸Š
 		x = z->right;
 		Transplant(T, z, z->right);
 	}
-	else if (z->right == Nil){			//ÓÒ¿Õ£¬×óÊ÷½ÓÉÏ
+	else if (z->right == Nil){			//å³ç©ºï¼Œå·¦æ ‘æ¥ä¸Š
 		x = z->left;
 		Transplant(T, z, z->left);
 	}
 	else{
-		y = Minimum(z->right);			//zµÄºó¼Ì
-		q.Color = y->data.Color;		//¼ÇÂ¼yµÄÔ­É«
+		y = Minimum(z->right);			//zçš„åç»§
+		q.Color = y->data.Color;		//è®°å½•yçš„åŸè‰²
 		x = y->right;
 		if (y->parent == z)
-			x->parent = y;			//·ÀÖ¹ÒÆÖ²ºóxµÄ¸¸½áµãÖ¸Ïòz
+			x->parent = y;			//é˜²æ­¢ç§»æ¤åxçš„çˆ¶ç»“ç‚¹æŒ‡å‘z
 		else{
 			Transplant(T, y, y->right);
 			y->right = z->right;
@@ -98,52 +98,52 @@ int Delete(RBTree &T, int e){
 		Transplant(T, z, y);
 		y->left = z->left;
 		y->left->parent = y;
-		y->data.Color = z->data.Color;	//ÓÃy´úÌæzµÄÎ»ÖÃºó°ÑyÖÃÎªzµÄÑÕÉ«£¨zÎªºì£¬Ôòy±»ÖÃÎªºì£©
+		y->data.Color = z->data.Color;	//ç”¨yä»£æ›¿zçš„ä½ç½®åæŠŠyç½®ä¸ºzçš„é¢œè‰²ï¼ˆzä¸ºçº¢ï¼Œåˆ™yè¢«ç½®ä¸ºçº¢ï¼‰
 	}
 	delete z;
 
 
 	cout << endl;
-	cout << "É¾³ıºó£º£¨Î´Î¬»¤£©" << endl;
-	cout << "ÖĞĞò±éÀú£º";
+	cout << "åˆ é™¤åï¼šï¼ˆæœªç»´æŠ¤ï¼‰" << endl;
+	cout << "ä¸­åºéå†ï¼š";
 	InOrderTraverse(T);
 	cout << endl;
-	cout << "ºóĞò±éÀú£º";
+	cout << "ååºéå†ï¼š";
 	PostOrderTraverse(T);
 	cout << endl;
 
 
-	if (q.Color == BLACK)		//±»É¾µÄz/yÎªºÚÉ«²ÅÒªÎ¬»¤
-		RBDeleteFixUp(T, x);	//xÎªÖ¸ÏòyµÄÔ­Î»ÖÃ²¢¸üĞÂÉ¾³ıºóµÄÎ»ÖÃ
+	if (q.Color == BLACK)		//è¢«åˆ çš„z/yä¸ºé»‘è‰²æ‰è¦ç»´æŠ¤
+		RBDeleteFixUp(T, x);	//xä¸ºæŒ‡å‘yçš„åŸä½ç½®å¹¶æ›´æ–°åˆ é™¤åçš„ä½ç½®
 
 	return 1;
 }
-//É¾³ıÊı¾İºóÎ¬»¤¹¤×÷
+//åˆ é™¤æ•°æ®åç»´æŠ¤å·¥ä½œ
 void RBDeleteFixUp(RBTree &T, RBTree x){
 	RBTree w = new RBTNode;
-	while (x != T&&x->data.Color == BLACK){		//¶¥Ìæ½áµãx²»Îª¸ù½áµã£¬ÇÒx(y)ÎªºÚÉ«Ê±²ÅÒªµ÷ÕûÎ»ÖÃ
+	while (x != T&&x->data.Color == BLACK){		//é¡¶æ›¿ç»“ç‚¹xä¸ä¸ºæ ¹ç»“ç‚¹ï¼Œä¸”x(y)ä¸ºé»‘è‰²æ—¶æ‰è¦è°ƒæ•´ä½ç½®
 		if (x == x->parent->left){
 			w = x->parent->right;
 			if (w->data.Color == RED){
-				w->data.Color = BLACK;				//case 1
+				w->data.Color = BLACK;				//case 1  å…„å¼Ÿç»“ç‚¹ä¸ºçº¢è‰²ï¼ŒæŠŠå…„å¼Ÿç»“ç‚¹å˜ä¸ºé»‘è‰²ï¼Œä½¿xå¤„è¡¥å……ä¸€ä¸ªé»‘è‰²
 				x->parent->data.Color = RED;
 				LeftRotate(T, x->parent);
 				w = x->parent->right;
 			}
 			if (w->left->data.Color == BLACK&&w->right->data.Color == BLACK){
-				w->data.Color = RED;				//case 2
+				w->data.Color = RED;				//case 2  å…„å¼Ÿé»‘è‰²ï¼Œå…¶å­©å­ä¹Ÿæ˜¯é»‘è‰²ï¼ŒæŠŠå…„å¼Ÿå˜çº¢è‰²ï¼ˆå‡å°‘æ—è¾¹ä¸€ä¸ªé»‘è‰²ç»“ç‚¹æ•°ï¼‰
 				x = x->parent;
 				if (x == T){
 					break;
 				}
 			}
 			else if (w->right->data.Color == BLACK){
-				w->left->data.Color = BLACK;		//case 3
+				w->left->data.Color = BLACK;		//case 3 å…„å¼Ÿå·¦å­©ä¸ºçº¢ï¼Œå…ˆè°ƒæ•´ä¸ºæƒ…å†µå››ï¼Œå†è¡¥å……ç»“ç‚¹
 				w->data.Color = RED;
 				RightRotate(T, w);
 				w = x->parent->right;
 			}
-			w->data.Color = x->parent->data.Color;	//case 4
+			w->data.Color = x->parent->data.Color;	//case 4 ï¼Œå…„å¼Ÿä¸ºé»‘ï¼Œä¸”å³å­©å­ä¸ºçº¢ï¼Œåˆ©ç”¨å³æ ‘ä¸ºå·¦æ ‘è¡¥å……ä¸€ä¸ªé»‘ç»“ç‚¹
 			x->parent->data.Color = BLACK;
 			w->right->data.Color = BLACK;
 			LeftRotate(T, x->parent);
@@ -179,7 +179,7 @@ void RBDeleteFixUp(RBTree &T, RBTree x){
 	}
 	x->data.Color = BLACK;
 }
-//ÒÆ¶¯×ÓÊ÷
+//ç§»åŠ¨å­æ ‘
 void Transplant(RBTree &T, RBTree u, RBTree v){
 	if (u->parent == Nil)
 		T = v;
@@ -188,14 +188,14 @@ void Transplant(RBTree &T, RBTree u, RBTree v){
 	else u->parent->right = v;
 	v->parent = u->parent;
 }
-//²åÈëÊı¾İ£¨ÔÊĞíÊı¾İÖØ¸´£©
+//æ’å…¥æ•°æ®ï¼ˆå…è®¸æ•°æ®é‡å¤ï¼‰
 void InsertTree(RBTree &T, TreeData e){
 	RBTree z = new RBTNode;
 	z->data = e;
 	RBTree y = Nil;
 	RBTree x = T;
 	while (x != Nil){
-		y = x;					//¼ÇÂ¼¸¸½áµã
+		y = x;					//è®°å½•çˆ¶ç»“ç‚¹
 		if (z->data.key <= x->data.key)
 			x = x->left;
 		else x = x->right;
@@ -212,26 +212,26 @@ void InsertTree(RBTree &T, TreeData e){
 	RBInsertFixUp(T, z);
 }
 
-//²åÈëÊı¾İºóÎ¬»¤¹¤×÷
+//æ’å…¥æ•°æ®åç»´æŠ¤å·¥ä½œ
 void RBInsertFixUp(RBTree &T, RBTree z){
 	RBTree y = new RBTNode;
 	while (z->parent->data.Color == RED){
 		if (z->parent == z->parent->parent->left){
-			y = z->parent->parent->right;			//yÎªzµÄÊå½áµã
+			y = z->parent->parent->right;			//yä¸ºzçš„å”ç»“ç‚¹
 			if (y->data.Color == RED){
-				z->parent->data.Color = BLACK;		//Çé¿öÒ» ĞÖµÜ½áµãÎªºìÉ«£¬°ÑĞÖµÜ½áµã±äÎªºÚÉ«£¬Ê¹x´¦²¹³äÒ»¸öºÚÉ«
+				z->parent->data.Color = BLACK;		//æƒ…å†µä¸€
 				y->data.Color = BLACK;
 				z->parent->parent->data.Color = RED;
 				z = z->parent->parent;
-				if (z->parent == Nil){				//Çé¿ö¶ş ĞÖµÜºÚÉ«£¬Æäº¢×ÓÒ²ÊÇºÚÉ«£¬°ÑĞÖµÜ±äºìÉ«£¨¼õÉÙÅÔ±ßÒ»¸öºÚÉ«½áµãÊı£©
+				if (z->parent == Nil){			
 					break;
 				}
 			}
-			else if (z == z->parent->right){		//Çé¿öÈı ĞÖµÜ×óº¢Îªºì£¬ÏÈµ÷ÕûÎªÇé¿öËÄ£¬ÔÙ²¹³ä½áµã
+			else if (z == z->parent->right){		//æƒ…å†µäºŒ
 				z = z->parent;
 				LeftRotate(T, z);
 			}
-			z->parent->data.Color = BLACK;			//Çé¿öËÄ£¬ĞÖµÜÎªºÚ£¬ÇÒÓÒº¢×ÓÎªºì£¬ÀûÓÃÓÒÊ÷Îª×óÊ÷²¹³äÒ»¸öºÚ½áµã
+			z->parent->data.Color = BLACK;			//æƒ…å†µä¸‰
 			z->parent->parent->data.Color = RED;
 			if (z->parent->parent == Nil){
 				break;
@@ -239,7 +239,7 @@ void RBInsertFixUp(RBTree &T, RBTree z){
 			RightRotate(T, z->parent->parent);
 		}
 		else if (z->parent == z->parent->parent->right){
-			y = z->parent->parent->left;			//yÎªzµÄÊå½áµã
+			y = z->parent->parent->left;			//yä¸ºzçš„å”ç»“ç‚¹
 			if (y->data.Color == RED){
 				z->parent->data.Color = BLACK;
 				y->data.Color = BLACK;
@@ -263,7 +263,7 @@ void RBInsertFixUp(RBTree &T, RBTree z){
 	}
 	T->data.Color = BLACK;
 }
-//×óĞı
+//å·¦æ—‹
 void LeftRotate(RBTree &T, RBTree x){
 	RBTree y;
 	y = x->right;
@@ -281,7 +281,7 @@ void LeftRotate(RBTree &T, RBTree x){
 	x->parent = y;
 }
 
-//ÓÒĞı
+//å³æ—‹
 void RightRotate(RBTree &T, RBTree x){
 	RBTree y;
 	y = x->left;
@@ -299,19 +299,19 @@ void RightRotate(RBTree &T, RBTree x){
 	x->parent = y;
 }
 
-//ÕÒ×îĞ¡Öµ
+//æ‰¾æœ€å°å€¼
 RBTree Minimum(RBTree T){
 	while (T->left != Nil)
 		T = T->left;
 	return T;
 }
-//ÕÒ×î´óÖµ
+//æ‰¾æœ€å¤§å€¼
 RBTree Maximum(RBTree T){
 	while (T->right != Nil)
 		T = T->right;
 	return T;
 }
-//Ñ°ÕÒºó¼Ì
+//å¯»æ‰¾åç»§
 RBTree Successor(RBTree T){
 	if (T->right != Nil)
 		return Minimum(T->right);
@@ -322,7 +322,7 @@ RBTree Successor(RBTree T){
 	}
 	return X;
 }
-//Ñ°ÕÒÇ°Çı
+//å¯»æ‰¾å‰é©±
 RBTree Predecessor(RBTree T){
 	if (T->left != Nil)
 		return Maximum(T->left);
@@ -333,7 +333,7 @@ RBTree Predecessor(RBTree T){
 	}
 	return X;
 }
-//ËÑË÷½áµã
+//æœç´¢ç»“ç‚¹
 RBTree Search(RBTree T, int e){
 	while (T != Nil&&e != T->data.key){
 		if (e < T->data.key)
@@ -343,56 +343,56 @@ RBTree Search(RBTree T, int e){
 	}
 	return T;
 }
-//ÖĞĞò±éÀúÊ÷£¨ÓÉĞ¡µ½´óÅÅÁĞÊä³ö£©
+//ä¸­åºéå†æ ‘ï¼ˆç”±å°åˆ°å¤§æ’åˆ—è¾“å‡ºï¼‰
 void InOrderTraverse(RBTree T){
 	if (T != Nil){
-		InOrderTraverse(T->left);		//×óÊ÷
-		cout << "(" << T->data.key << "," << T->data.Color << ")->";//¸ù½áµã
-		InOrderTraverse(T->right);		//ÓÒÊ÷
+		InOrderTraverse(T->left);		//å·¦æ ‘
+		cout << "(" << T->data.key << "," << T->data.Color << ")->";//æ ¹ç»“ç‚¹
+		InOrderTraverse(T->right);		//å³æ ‘
 	}
 }
-//ºóĞò±éÀú
+//ååºéå†
 void PostOrderTraverse(RBTree T){
 	if (T != Nil){
-		PostOrderTraverse(T->left);		//×óÊ÷
-		PostOrderTraverse(T->right);	//ÓÒÊ÷
-		cout << "(" << T->data.key << "," << T->data.Color << ")->";//¸ù½áµã
+		PostOrderTraverse(T->left);		//å·¦æ ‘
+		PostOrderTraverse(T->right);	//å³æ ‘
+		cout << "(" << T->data.key << "," << T->data.Color << ")->";//æ ¹ç»“ç‚¹
 	}
 }
 
-//²âÊÔ¹¦ÄÜ
+//æµ‹è¯•åŠŸèƒ½
 void test(RBTree T){
 	RBTree A = new RBTNode;
 	RBTree B = new RBTNode;
 	int n;
-	cout << "ÖĞĞò±éÀú£º";
+	cout << "ä¸­åºéå†ï¼š";
 	InOrderTraverse(T);
 	cout << endl;
-	cout << "ºóĞò±éÀú£º";
+	cout << "ååºéå†ï¼š";
 	PostOrderTraverse(T);
 	cout << endl << endl;
-	cout << "¸ù½áµãÎª£º" << T->data.key << "," << T->data.Color << endl;
+	cout << "æ ¹ç»“ç‚¹ä¸ºï¼š" << T->data.key << "," << T->data.Color << endl;
 	for (;;){
-		cout << "ÊäÈëËÑË÷Êı¾İ£º";
+		cout << "è¾“å…¥æœç´¢æ•°æ®ï¼š";
 		cin >> n;
 		if (cin.fail()){
 			cin.clear();
 			cin.sync();
 			break;
 		}
-		cout << "É¾³ı"<<n<<"µã£º";
+		cout << "åˆ é™¤"<<n<<"ç‚¹ï¼š";
 		if (Delete(T, n))
-			cout << "½áµã" << n << "ÒÑ³É¹¦É¾³ı£¡" << endl;
+			cout << "ç»“ç‚¹" << n << "å·²æˆåŠŸåˆ é™¤ï¼" << endl;
 		else
 			cout << "ERROR!" << endl;
 
-		cout << "¸ù½áµãÎª£º" << T->data.key << "," << T->data.Color;
+		cout << "æ ¹ç»“ç‚¹ä¸ºï¼š" << T->data.key << "," << T->data.Color;
 		cout << endl;
-		cout << "Î¬»¤ºó£º" << endl;
-		cout << "ÖĞĞò±éÀú£º";
+		cout << "ç»´æŠ¤åï¼š" << endl;
+		cout << "ä¸­åºéå†ï¼š";
 		InOrderTraverse(T);
 		cout << endl;
-		cout << "ºóĞò±éÀú£º";
+		cout << "ååºéå†ï¼š";
 		PostOrderTraverse(T);
 		cout << endl;
 
@@ -400,12 +400,12 @@ void test(RBTree T){
 
 		/*
 		A = Maximum(T);
-		cout << "×î´ó×îĞ¡Öµ£º" << "A.MAX = " << A->data.key;
+		cout << "æœ€å¤§æœ€å°å€¼ï¼š" << "A.MAX = " << A->data.key;
 		A = Minimum(T);
-		cout << "£¬A.MIN = " << A->data.key << endl;
-		cout << "ÊäÈëËÑË÷Êı¾İ£º";
+		cout << "ï¼ŒA.MIN = " << A->data.key << endl;
+		cout << "è¾“å…¥æœç´¢æ•°æ®ï¼š";
 		cin >> n;
-		cout << "ËÑË÷Êı¾İ" << n << "²¢Êä³öÆä¸¸½áµã×óÓÒº¢£º" << endl;
+		cout << "æœç´¢æ•°æ®" << n << "å¹¶è¾“å‡ºå…¶çˆ¶ç»“ç‚¹å·¦å³å­©ï¼š" << endl;
 		A = Search(T, n);
 		cout << "A = " << A->data.key << endl;
 		cout << "A->parent = ";
@@ -423,7 +423,7 @@ void test(RBTree T){
 		cout << A->right->data.key << endl;
 		else
 		cout << "ERROR!,NULL" << endl;
-		cout << "AµÄÇ°Çıºó¼Ì£º" << endl;
+		cout << "Açš„å‰é©±åç»§ï¼š" << endl;
 		B = Predecessor(A);
 		if (B)
 		cout << "A->predecessor = " << B->data.key;
