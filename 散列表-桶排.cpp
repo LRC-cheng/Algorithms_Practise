@@ -1,3 +1,4 @@
+/*Created by LRC-cheng*/
 #include<iostream>
 #define SIZE 10
 #define NUM 105
@@ -21,19 +22,19 @@ inline int h(int);
 
 
 int main(){
-	cout << "===============»ùÓÚÉ¢ÁĞ±íµÄÍ°ÅÅĞò=================" << endl;
-	cout << "ÊäÈëÅÅĞòÊı¾İ(0~99)£º" << endl;
+	cout << "===============åŸºäºæ•£åˆ—è¡¨çš„æ¡¶æ’åº=================" << endl;
+	cout << "è¾“å…¥æ’åºæ•°æ®(0~99)ï¼š" << endl;
 	int *A;
 	LRecond p = new Recond;
 	Hash T[10];
 	InitHash(T, 10);
 	A = new int[NUM];
-	int r = -2;		//rÎªÊı×éÏÂ±ê
+	int r = -2;		//rä¸ºæ•°ç»„ä¸‹æ ‡
 
 	for (int i = 0;; i++){
 		cin >> A[i];
 		r++;
-		if (cin.fail()){		//µ±ÊäÈëµÄ²»ÊÇÊı×ÖÊ±ÍË³öÊäÈë
+		if (cin.fail()){		//å½“è¾“å…¥çš„ä¸æ˜¯æ•°å­—æ—¶é€€å‡ºè¾“å…¥
 			break;
 		}
 	}
@@ -43,7 +44,7 @@ int main(){
 	}
 
 	Sort(T, A);
-	cout << "½á¹ûÎª£º";
+	cout << "ç»“æœä¸ºï¼š";
 	for (int i = 0; i <= r; i++){
 		cout << A[i] << "  ";
 	}
@@ -54,11 +55,11 @@ int main(){
 	return 0;
 }
 
-//É¢ÁĞº¯Êı e£ºÔ­Ê¼Êı¾İ
+//æ•£åˆ—å‡½æ•° eï¼šåŸå§‹æ•°æ®
 inline int h(int e){
 	return e / 10;
 }
-//³õÊ¼»¯ Hash H[]:¹şÏ£±í
+//åˆå§‹åŒ– Hash H[]:å“ˆå¸Œè¡¨
 void InitHash(Hash H[],int n){
 	for (int i = 0; i < n; i++){
 		LRecond p = new Recond;
@@ -67,7 +68,7 @@ void InitHash(Hash H[],int n){
 		H[i].next = p;
 	}
 }
-//Èë±í Hash H[]:¹şÏ£±í e:Èë±íÔªËØ
+//å…¥è¡¨ Hash H[]:å“ˆå¸Œè¡¨ e:å…¥è¡¨å…ƒç´ 
 int Push(Hash H[], int e){
 	LRecond p = new Recond;
 	LRecond s = new Recond;
@@ -112,7 +113,7 @@ int Push(Hash H[], int e){
 	}
 	
 }
-//ÅÅĞò Hash H[]:¹şÏ£±í °ÑÅÅĞò½á¹û·Å½øA[n];
+//æ’åº Hash H[]:å“ˆå¸Œè¡¨ æŠŠæ’åºç»“æœæ”¾è¿›A[n];
 void Sort(Hash H[], int A[]){
 	LRecond p = new Recond;
 	int j = 0;
