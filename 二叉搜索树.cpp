@@ -1,8 +1,9 @@
+//Created by LRC-cheng
 #include<iostream>
 #include<string>
 using namespace std;
 
-//¶ş²æËÑË÷Ê÷µÄÈı²æÁ´±í´æ´¢½á¹¹
+//äºŒå‰æœç´¢æ ‘çš„ä¸‰å‰é“¾è¡¨å­˜å‚¨ç»“æ„
 typedef struct{
 	string other;
 	int key;
@@ -12,31 +13,31 @@ typedef struct BSTNode{
 	struct BSTNode *left, *right, *parent;
 }BSTNode, *BSTree;
 
-void InsertTree(BSTree &, TreeData);				//²åÈëÊı¾İ£¨ÔÊĞíÊı¾İÖØ¸´£©
-void Transplant(BSTree &, BSTree, BSTree);		//ÒÆ¶¯×ÓÊ÷
-void Delete(BSTree &, BSTree);				//É¾³ıÊı¾İ½áµã
-BSTree Minimum(BSTree);			//ÕÒ×îĞ¡Öµ
-BSTree Maximum(BSTree);			//ÕÒ×î´óÖµ
-BSTree Search(BSTree, int);			//ËÑË÷½áµã
-BSTree Successor(BSTree);			//Ñ°ÕÒºó¼Ì
-BSTree Predecessor(BSTree);			//Ñ°ÕÒÇ°Çı
-void CreatBSTree(BSTree &);			//ÏÈĞò±éÀú½¨Á¢¶ş²æËÑË÷Ê÷£¬T:¶ş²æËÑË÷Ê÷
-void InOrderTraverse(BSTree);		//ÖĞĞò±éÀúÊ÷£¨ÓÉĞ¡µ½´óÅÅÁĞÊä³ö£©
-void PostOrderTraverse(BSTree);		//ºóĞò±éÀú
+void InsertTree(BSTree &, TreeData);				//æ’å…¥æ•°æ®ï¼ˆå…è®¸æ•°æ®é‡å¤ï¼‰
+void Transplant(BSTree &, BSTree, BSTree);		//ç§»åŠ¨å­æ ‘
+void Delete(BSTree &, BSTree);				//åˆ é™¤æ•°æ®ç»“ç‚¹
+BSTree Minimum(BSTree);			//æ‰¾æœ€å°å€¼
+BSTree Maximum(BSTree);			//æ‰¾æœ€å¤§å€¼
+BSTree Search(BSTree, int);			//æœç´¢ç»“ç‚¹
+BSTree Successor(BSTree);			//å¯»æ‰¾åç»§
+BSTree Predecessor(BSTree);			//å¯»æ‰¾å‰é©±
+void CreatBSTree(BSTree &);			//å…ˆåºéå†å»ºç«‹äºŒå‰æœç´¢æ ‘ï¼ŒT:äºŒå‰æœç´¢æ ‘
+void InOrderTraverse(BSTree);		//ä¸­åºéå†æ ‘ï¼ˆç”±å°åˆ°å¤§æ’åˆ—è¾“å‡ºï¼‰
+void PostOrderTraverse(BSTree);		//ååºéå†
 
 int main(){
 	BSTree T, A, B;
 	int n;
-	cout << "´´½¨¶ş²æËÑË÷Ê÷£º";
+	cout << "åˆ›å»ºäºŒå‰æœç´¢æ ‘ï¼š";
 	CreatBSTree(T);
 
 	A = Maximum(T);
-	cout << "×î´ó×îĞ¡Öµ£º" << "A.MAX = " << A->data.key;
+	cout << "æœ€å¤§æœ€å°å€¼ï¼š" << "A.MAX = " << A->data.key;
 	A = Minimum(T);
 	cout << "A.MIN = " << A->data.key << endl;
-	cout << "ÊäÈëËÑË÷Êı¾İ£º";
+	cout << "è¾“å…¥æœç´¢æ•°æ®ï¼š";
 	cin >> n;
-	cout << "ËÑË÷Êı¾İ" << n << "²¢Êä³öÆä¸¸½áµã×óÓÒº¢£º" << endl;
+	cout << "æœç´¢æ•°æ®" << n << "å¹¶è¾“å‡ºå…¶çˆ¶ç»“ç‚¹å·¦å³å­©ï¼š" << endl;
 	A = Search(T, n);
 	cout << "A = " << A->data.key << endl;
 	cout << "A->parent = ";
@@ -54,7 +55,7 @@ int main(){
 		cout << A->right->data.key << endl;
 	else
 		cout << "ERROR!,NULL" << endl;
-	cout << "AµÄÇ°Çıºó¼Ì£º" << endl;
+	cout << "Açš„å‰é©±åç»§ï¼š" << endl;
 	B = Predecessor(A);
 	if (B)
 		cout << "A->predecessor = :" << B->data.key;
@@ -66,16 +67,16 @@ int main(){
 	else
 		cout << "ERROR!,NULL" << endl;
 
-	cout << "ÖĞĞò¡¢ºóĞò±éÀú£º" << endl;
+	cout << "ä¸­åºã€ååºéå†ï¼š" << endl;
 	InOrderTraverse(T);
 	cout << endl;
 	PostOrderTraverse(T);
 	cout << endl;
 	B = A->parent;
-	cout << "É¾³ıAµã£º";
+	cout << "åˆ é™¤Aç‚¹ï¼š";
 	Delete(T, A);
 
-	cout << "ÖĞĞò¡¢ºóĞò±éÀú£º" << endl;
+	cout << "ä¸­åºã€ååºéå†ï¼š" << endl;
 	InOrderTraverse(T);
 	cout << endl;
 	PostOrderTraverse(T);
@@ -85,61 +86,61 @@ int main(){
 	return 0;
 }
 
-//ÒÆ¶¯×ÓÊ÷£¬°ÑvÒÆ¶¯µ½u´¦£¬uÊ÷½«»á·ÖÀë³öÀ´
+//ç§»åŠ¨å­æ ‘ï¼ŒæŠŠvç§»åŠ¨åˆ°uå¤„ï¼Œuæ ‘å°†ä¼šåˆ†ç¦»å‡ºæ¥
 void Transplant(BSTree &T, BSTree u, BSTree v){
-	if (!u->parent)				//uÎª¸ù½áµã£¬Ö±½Ó°ÑvÌæ´ú¸ù½áµã
+	if (!u->parent)				//uä¸ºæ ¹ç»“ç‚¹ï¼Œç›´æ¥æŠŠvæ›¿ä»£æ ¹ç»“ç‚¹
 		T = v;
-	else if (u == u->parent->left)	//Ö±½Ó°ÑvÌæ´úuµÄÎ»ÖÃ
+	else if (u == u->parent->left)	//ç›´æ¥æŠŠvæ›¿ä»£uçš„ä½ç½®
 		u->parent->left = v;
 	else u->parent->right = v;
-	if (v)						//Èôv²»Îª¿Õ£¬¸üĞÂÆä¸¸½áµã
+	if (v)						//è‹¥vä¸ä¸ºç©ºï¼Œæ›´æ–°å…¶çˆ¶ç»“ç‚¹
 		v->parent = u->parent;
 }
-//É¾³ıÊı¾İ½áµã£¨Ë¼Â·£ºÉ¾³ıÇ°°ÑzµÄºó¼Ì´úÌæzµÄÎ»ÖÃ£©
+//åˆ é™¤æ•°æ®ç»“ç‚¹ï¼ˆæ€è·¯ï¼šåˆ é™¤å‰æŠŠzçš„åç»§ä»£æ›¿zçš„ä½ç½®ï¼‰
 void Delete(BSTree &T, BSTree z){
 	BSTree y;
-	if (!z->left)						//×ó×ÓÊ÷Îª¿Õ£¬ÓÒ×ÓÊ÷½ÓÉÏ£¬z·ÖÀë³öÀ´
+	if (!z->left)						//å·¦å­æ ‘ä¸ºç©ºï¼Œå³å­æ ‘æ¥ä¸Šï¼Œzåˆ†ç¦»å‡ºæ¥
 		Transplant(T, z, z->right);
-	else if (!z->right)				//ÓÒ×ÓÊ÷Îª¿Õ£¬×ó×ÓÊ÷½ÓÉÏ£¬z·ÖÀë³öÀ´
+	else if (!z->right)				//å³å­æ ‘ä¸ºç©ºï¼Œå·¦å­æ ‘æ¥ä¸Šï¼Œzåˆ†ç¦»å‡ºæ¥
 		Transplant(T, z, z->left);
-	else{							//×óÓÒ×ÓÊ÷¾ù²»Îª¿Õ
-		y = Minimum(z->right);			//zµÄºó¼Ì--ÔÚÓÒ×ÓÊ÷µÄ×îĞ¡Öµ
-		if (y->parent != z){			//Èôy²»ÊÇzµÄº¢×Ó£¬¾Í°ÑzµÄÓÒº¢ÒÆµ½yµÄÓÒº¢´¦
-			Transplant(T, y, y->right);//ÏÈ°ÑyµÄÓÒº¢ÒÆµ½yµÄÎ»ÖÃ£¬yµ¥¶ÀÓÎÀëÁË³öÀ´
-			y->right = z->right;		//¾Í°ÑzµÄÓÒº¢ÒÆµ½yµÄÓÒº¢´¦
+	else{							//å·¦å³å­æ ‘å‡ä¸ä¸ºç©º
+		y = Minimum(z->right);			//zçš„åç»§--åœ¨å³å­æ ‘çš„æœ€å°å€¼
+		if (y->parent != z){			//è‹¥yä¸æ˜¯zçš„å­©å­ï¼Œå°±æŠŠzçš„å³å­©ç§»åˆ°yçš„å³å­©å¤„
+			Transplant(T, y, y->right);//å…ˆæŠŠyçš„å³å­©ç§»åˆ°yçš„ä½ç½®ï¼Œyå•ç‹¬æ¸¸ç¦»äº†å‡ºæ¥
+			y->right = z->right;		//å°±æŠŠzçš„å³å­©ç§»åˆ°yçš„å³å­©å¤„
 			y->right->parent = y;
 		}
-		Transplant(T, z, y);			//°ÑyÒÆµ½z´¦£¬z¼°Æä×ó×ÓÊ÷´ÓT·ÖÀëÁË³öÀ´
-		y->left = z->left;			//°ÑzµÄ×óº¢ÒÆµ½yµÄ×óº¢£¬Ê¹zÃ»º¢×ÓÁË
+		Transplant(T, z, y);			//æŠŠyç§»åˆ°zå¤„ï¼ŒzåŠå…¶å·¦å­æ ‘ä»Tåˆ†ç¦»äº†å‡ºæ¥
+		y->left = z->left;			//æŠŠzçš„å·¦å­©ç§»åˆ°yçš„å·¦å­©ï¼Œä½¿zæ²¡å­©å­äº†
 		y->left->parent = y;
 	}
-	delete z;						//°Ñµ¥¶ÀµÄz½áµãÉ¾³ı
+	delete z;						//æŠŠå•ç‹¬çš„zç»“ç‚¹åˆ é™¤
 }
 
-//ÕÒ×îĞ¡ÖµÔÚ×î×ó±ß
+//æ‰¾æœ€å°å€¼åœ¨æœ€å·¦è¾¹
 BSTree Minimum(BSTree T){
 	while (T->left)
 		T = T->left;
 	return T;
 }
-//ÕÒ×î´óÖµÔÚ×îÓÒ±ß
+//æ‰¾æœ€å¤§å€¼åœ¨æœ€å³è¾¹
 BSTree Maximum(BSTree T){
 	while (T->right)
 		T = T->right;
 	return T;
 }
-//Ñ°ÕÒºó¼Ì
+//å¯»æ‰¾åç»§
 BSTree Successor(BSTree T){
-	if (T->right)					//ÓÒÊ÷²»Îª¿Õ£¬ÔÚÓÒÊ÷×îĞ¡Öµ£»ÓÒÊ÷Îª¿Õ£¬ºó¼ÌÔÚ¸¸½áµã
+	if (T->right)					//å³æ ‘ä¸ä¸ºç©ºï¼Œåœ¨å³æ ‘æœ€å°å€¼ï¼›å³æ ‘ä¸ºç©ºï¼Œåç»§åœ¨çˆ¶ç»“ç‚¹
 		return Minimum(T->right);
 	BSTree X = T->parent;
-	while (X&&T == X->right){		//¸Ã½áµãÊôÓÚÓÒº¢£¬¼´¸Ã¸¸½áµãÒÑ¾­·ÃÎÊ¹ı£¬¼ÌĞøÑ°ÕÒ
+	while (X&&T == X->right){		//è¯¥ç»“ç‚¹å±äºå³å­©ï¼Œå³è¯¥çˆ¶ç»“ç‚¹å·²ç»è®¿é—®è¿‡ï¼Œç»§ç»­å¯»æ‰¾
 		T = X;
 		X = X->parent;
 	}
 	return X;
 }
-//Ñ°ÕÒÇ°Çı£¬Óëºó¼Ì¶Ô³Æ
+//å¯»æ‰¾å‰é©±ï¼Œä¸åç»§å¯¹ç§°
 BSTree Predecessor(BSTree T){
 	if (T->left)
 		return Maximum(T->left);
@@ -150,9 +151,9 @@ BSTree Predecessor(BSTree T){
 	}
 	return X;
 }
-//ËÑË÷½áµã
+//æœç´¢ç»“ç‚¹
 BSTree Search(BSTree T, int e){
-	while (T&&e != T->data.key){	//Ê÷²»Îª¿ÕÔò±È½Ï¹Ø¼ü×Ö
+	while (T&&e != T->data.key){	//æ ‘ä¸ä¸ºç©ºåˆ™æ¯”è¾ƒå…³é”®å­—
 		if (e < T->data.key)
 			T = T->left;
 		else
@@ -160,15 +161,15 @@ BSTree Search(BSTree T, int e){
 	}
 	return T;
 }
-//²åÈëÊı¾İ£¨ÔÊĞíÊı¾İÖØ¸´£©
+//æ’å…¥æ•°æ®ï¼ˆå…è®¸æ•°æ®é‡å¤ï¼‰
 void InsertTree(BSTree &T, TreeData e){
-	if (!T){							//TÎª¿Õ£¬¸Ã´¦¼´Îª²åÈëÊı¾İµÄµØ·½
+	if (!T){							//Tä¸ºç©ºï¼Œè¯¥å¤„å³ä¸ºæ’å…¥æ•°æ®çš„åœ°æ–¹
 		BSTree S = new BSTNode;
 		S->data = e;
 		S->parent = S->left = S->right = NULL;
 		T = S;
 	}
-	else if (e.key <= T->data.key){		//È¥µô²»µÈºÅ¼´ÎªÎŞÖØ¸´Êı¾İ²åÈë
+	else if (e.key <= T->data.key){		//å»æ‰ä¸ç­‰å·å³ä¸ºæ— é‡å¤æ•°æ®æ’å…¥
 		InsertTree(T->left, e);
 		T->left->parent = T;
 	}
@@ -177,7 +178,7 @@ void InsertTree(BSTree &T, TreeData e){
 		T->right->parent = T;
 	}
 }
-//ÏÈĞò±éÀú½¨Á¢¶ş²æËÑË÷Ê÷£¬T:¶ş²æËÑË÷Ê÷
+//å…ˆåºéå†å»ºç«‹äºŒå‰æœç´¢æ ‘ï¼ŒT:äºŒå‰æœç´¢æ ‘
 void CreatBSTree(BSTree &T){
 	TreeData e;
 	T = NULL;
@@ -191,20 +192,20 @@ void CreatBSTree(BSTree &T){
 		InsertTree(T, e);
 	}
 }
-//ÖĞĞò±éÀúÊ÷£¨ÓÉĞ¡µ½´óÅÅÁĞÊä³ö£©
+//ä¸­åºéå†æ ‘ï¼ˆç”±å°åˆ°å¤§æ’åˆ—è¾“å‡ºï¼‰
 void InOrderTraverse(BSTree T){
 	if (T){
-		InOrderTraverse(T->left);		//×óÊ÷
-		cout << T->data.key << "," << T->data.other << "->";	//¸ù½áµã
-		InOrderTraverse(T->right);		//ÓÒÊ÷
+		InOrderTraverse(T->left);		//å·¦æ ‘
+		cout << T->data.key << "," << T->data.other << "->";	//æ ¹ç»“ç‚¹
+		InOrderTraverse(T->right);		//å³æ ‘
 	}
 }
-//ºóĞò±éÀú
+//ååºéå†
 void PostOrderTraverse(BSTree T){
 	if (T){
-		PostOrderTraverse(T->left);		//×óÊ÷
-		PostOrderTraverse(T->right);	//ÓÒÊ÷
-		cout << T->data.key <<","<<T->data.other<< "->";	//¸ù½áµã
+		PostOrderTraverse(T->left);		//å·¦æ ‘
+		PostOrderTraverse(T->right);	//å³æ ‘
+		cout << T->data.key <<","<<T->data.other<< "->";	//æ ¹ç»“ç‚¹
 	}
 }
 
