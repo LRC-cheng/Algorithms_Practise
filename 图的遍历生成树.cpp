@@ -1,58 +1,59 @@
+//Created by LRC-cheng
 #include<iostream>
 #include<string>
 using namespace std;
 
-//Í¼µÄÁÚ½Ó¾ØÕó´æ´¢±íÊ¾
+//å›¾çš„é‚»æ¥çŸ©é˜µå­˜å‚¨è¡¨ç¤º
 #define MVNum 50 
-typedef char VerTexType;		//¶¥µãÃû³Æ
-typedef int ArcType;			//±ß
+typedef char VerTexType;		//é¡¶ç‚¹åç§°
+typedef int ArcType;			//è¾¹
 typedef struct{
 	VerTexType vexs[MVNum];
-	ArcType arcs[MVNum][MVNum];//ÁÚ½Ó¾ØÕó
+	ArcType arcs[MVNum][MVNum];//é‚»æ¥çŸ©é˜µ
 	int vexnum, arcnum;
 }AMGraph;
 
-int CreateUDN(AMGraph &);				//´´½¨ÁÚ½Ó¾ØÕó
-int LocateVex(AMGraph, VerTexType);		//²éÕÒ¶¥µãÊı×éÏÂ±ê
-int FirstAdj(AMGraph, int);				//ÕÒµ½±àºÅÎªvµÄ¶¥µãµÄµÚÒ»¸öÁÚ½Ó¶¥µã±àºÅ
-int NextAdj(AMGraph, int, int);			//ÉèwÊÇvµÄÁÚ½Ó¶¥µã, ÕÒµ½vµÄÅÅÔÚwºóµÄÏÂÒ»¸öÁÚ½Ó¶¥µã±àºÅ.
-void DepthFirstSearch(AMGraph, int);		//¶ÔÁ¬Í¨Í¼´Ó¶¥µãv¿ªÊ¼½øĞĞÉî¶ÈÓÅÏÈ·ÃÎÊ
-void InitVisited();					//³õÊ¼»¯·ÃÎÊ±êÖ¾Êı×é
-bool visited[MVNum];					//·ÃÎÊ±êÖ¾Êı×é
+int CreateUDN(AMGraph &);				//åˆ›å»ºé‚»æ¥çŸ©é˜µ
+int LocateVex(AMGraph, VerTexType);		//æŸ¥æ‰¾é¡¶ç‚¹æ•°ç»„ä¸‹æ ‡
+int FirstAdj(AMGraph, int);				//æ‰¾åˆ°ç¼–å·ä¸ºvçš„é¡¶ç‚¹çš„ç¬¬ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹ç¼–å·
+int NextAdj(AMGraph, int, int);			//è®¾wæ˜¯vçš„é‚»æ¥é¡¶ç‚¹, æ‰¾åˆ°vçš„æ’åœ¨wåçš„ä¸‹ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹ç¼–å·.
+void DepthFirstSearch(AMGraph, int);		//å¯¹è¿é€šå›¾ä»é¡¶ç‚¹vå¼€å§‹è¿›è¡Œæ·±åº¦ä¼˜å…ˆè®¿é—®
+void InitVisited();					//åˆå§‹åŒ–è®¿é—®æ ‡å¿—æ•°ç»„
+bool visited[MVNum];					//è®¿é—®æ ‡å¿—æ•°ç»„
 
 int main(){
 	AMGraph G;
 	CreateUDN(G);
 	InitVisited();
-	cout << "¸ÃÁÚ½Ó¾ØÕóÎª£º" << endl;
-	for (int i = 0; i < G.vexnum; i++){		//²é¿´ÁÚ½Ó¾ØÕó¸³ÖµÇé¿ö
+	cout << "è¯¥é‚»æ¥çŸ©é˜µä¸ºï¼š" << endl;
+	for (int i = 0; i < G.vexnum; i++){		//æŸ¥çœ‹é‚»æ¥çŸ©é˜µèµ‹å€¼æƒ…å†µ
 		for (int j = 0; j < G.vexnum; j++){
 			cout << G.arcs[i][j] << " ";
 		}
 		cout << endl;
 	}
 	int n;
-	cout << "ÇëÎÊ´ÓµÚ¼¸¸öµã¿ªÊ¼±éÀú£¨1~8£©£º"; cin >> n;
-	cout << "Í¼µÄ±éÀú£º" << endl;
+	cout << "è¯·é—®ä»ç¬¬å‡ ä¸ªç‚¹å¼€å§‹éå†ï¼ˆ1~8ï¼‰ï¼š"; cin >> n;
+	cout << "å›¾çš„éå†ï¼š" << endl;
 	DepthFirstSearch(G, n);
 	cout << endl;
 	system("pause");
 	return 0;
 }
 
-//´´½¨ÁÚ½Ó¾ØÕó
+//åˆ›å»ºé‚»æ¥çŸ©é˜µ
 int CreateUDN(AMGraph &G){
 	VerTexType v1, v2;
-	G.vexnum = 8; G.arcnum = 10;			//Éè¶¨Îª8¸ö¶¥µã£¬10Ìõ±ßµÄÁ¬Í¨Í¼
-	cout << "ÊäÈë¶¥µãÃû³Æ£º" << endl;
+	G.vexnum = 8; G.arcnum = 10;			//è®¾å®šä¸º8ä¸ªé¡¶ç‚¹ï¼Œ10æ¡è¾¹çš„è¿é€šå›¾
+	cout << "è¾“å…¥é¡¶ç‚¹åç§°ï¼š" << endl;
 	for (int i = 0; i < G.vexnum; ++i)
 		cin>>G.vexs[i];
-	for (int i = 0; i < G.vexnum; ++i)		//³õÊ¼»¯ÁÚ½Ó¾ØÕó
+	for (int i = 0; i < G.vexnum; ++i)		//åˆå§‹åŒ–é‚»æ¥çŸ©é˜µ
 		for (int j = 0; j < G.vexnum; ++j)
 			G.arcs[i][j] = 0;
 	
 	for (int k = 0; k < G.arcnum; ++k){
-		cout << "ÊäÈë¸÷¶¥µãÖ®¼äµÄ¹ØÏµ£¨v1,v2£©£º" << endl;
+		cout << "è¾“å…¥å„é¡¶ç‚¹ä¹‹é—´çš„å…³ç³»ï¼ˆv1,v2ï¼‰ï¼š" << endl;
 		int i = 0, j = 0;
 		cin >> v1 >> v2;
 		i = LocateVex(G, v1); j = LocateVex(G, v2);
@@ -62,53 +63,53 @@ int CreateUDN(AMGraph &G){
 	return 0;
 }
 
-//²éÕÒ¶¥µãÊı×éÏÂ±ê G£ºÁÚ½Ó¾ØÕó½á¹¹£¬V£º¶¥µãÃû³Æ
+//æŸ¥æ‰¾é¡¶ç‚¹æ•°ç»„ä¸‹æ ‡ Gï¼šé‚»æ¥çŸ©é˜µç»“æ„ï¼ŒVï¼šé¡¶ç‚¹åç§°
 int LocateVex(AMGraph G, VerTexType V){
 	for (int i = 0; i < G.vexnum; i++){
 		if (V == G.vexs[i]){
-			return i;		//³É¹¦²éÕÒ£¬·µ»Ø¶ÔÓ¦ÏÂ±ê
+			return i;		//æˆåŠŸæŸ¥æ‰¾ï¼Œè¿”å›å¯¹åº”ä¸‹æ ‡
 		}
 	}
-	return -1;				//²éÕÒÊ§°Ü£¬·µ»Ø-1£»
+	return -1;				//æŸ¥æ‰¾å¤±è´¥ï¼Œè¿”å›-1ï¼›
 }
 
-//ÕÒµ½±àºÅÎªvµÄ¶¥µãµÄµÚÒ»¸öÁÚ½Ó¶¥µã±àºÅ
+//æ‰¾åˆ°ç¼–å·ä¸ºvçš„é¡¶ç‚¹çš„ç¬¬ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹ç¼–å·
 int FirstAdj(AMGraph G, int v){
-	for (int i = 0; i < G.vexnum; ++i){					//´ÓµÚÒ»ÁĞ¿ªÊ¼²éÕÒ
-		if (G.arcs[v][i] == 1 && visited[i] == false)	//ÈôÏàÁ¬ÇÒÎ´±»±éÀú£¬Ôò·µ»Ø¶ÔÓ¦ÏÂ±ê
+	for (int i = 0; i < G.vexnum; ++i){					//ä»ç¬¬ä¸€åˆ—å¼€å§‹æŸ¥æ‰¾
+		if (G.arcs[v][i] == 1 && visited[i] == false)	//è‹¥ç›¸è¿ä¸”æœªè¢«éå†ï¼Œåˆ™è¿”å›å¯¹åº”ä¸‹æ ‡
 			return i;
 	}
-	return -1;										//¸Ã¶¥µãÃ»ÓĞÏàÁ¬µÄÁÚ½Ó¶¥µã£¬·µ»Ø-1
+	return -1;										//è¯¥é¡¶ç‚¹æ²¡æœ‰ç›¸è¿çš„é‚»æ¥é¡¶ç‚¹ï¼Œè¿”å›-1
 }
 
-//ÉèwÊÇvµÄÁÚ½Ó¶¥µã, ÕÒµ½vµÄÅÅÔÚwºóµÄÏÂÒ»¸öÁÚ½Ó¶¥µã±àºÅ
+//è®¾wæ˜¯vçš„é‚»æ¥é¡¶ç‚¹, æ‰¾åˆ°vçš„æ’åœ¨wåçš„ä¸‹ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹ç¼–å·
 int NextAdj(AMGraph G, int v, int w){
-	for (int i = w; i < G.vexnum; ++i){					//´Ów¿ªÊ¼ÕÒ
-		if (G.arcs[v][i] == 1 && visited[i] == false)	//ÕÒµ½ÏàÁ¬¶¥µã£¬ÇÒÎ´±»±éÀú
+	for (int i = w; i < G.vexnum; ++i){					//ä»wå¼€å§‹æ‰¾
+		if (G.arcs[v][i] == 1 && visited[i] == false)	//æ‰¾åˆ°ç›¸è¿é¡¶ç‚¹ï¼Œä¸”æœªè¢«éå†
 			return i;
 	}
-	return -1;										//²éÕÒÊ§°Ü·µ»Ø-1
+	return -1;										//æŸ¥æ‰¾å¤±è´¥è¿”å›-1
 }
 
-//¶ÔÁ¬Í¨Í¼´Ó¶¥µã±àºÅv¿ªÊ¼½øĞĞÉî¶ÈÓÅÏÈ·ÃÎÊ
+//å¯¹è¿é€šå›¾ä»é¡¶ç‚¹ç¼–å·vå¼€å§‹è¿›è¡Œæ·±åº¦ä¼˜å…ˆè®¿é—®
 void DepthFirstSearch(AMGraph G, int v){
-	VerTexType m;				//°Ñ±àºÅv×ª»»Îª¶ÔÓ¦Ãû³ÆÊä³ö£¬²¢°Ñ¶ÔÓ¦·ÃÎÊÊı×éÖÃÎªtrue
+	VerTexType m;				//æŠŠç¼–å·vè½¬æ¢ä¸ºå¯¹åº”åç§°è¾“å‡ºï¼Œå¹¶æŠŠå¯¹åº”è®¿é—®æ•°ç»„ç½®ä¸ºtrue
 	m = G.vexs[v];
 	cout << m << "->"; visited[v] = true;
-	for (int w = FirstAdj(G, v); w >= 0; w = NextAdj(G, v, w)){ //ÏÈÕÒ³öÓë¸ÃµãÏàÁ¬µÄµÚÒ»¸ö½áµã£¬Î´±»±éÀúÔò½øĞĞ±éÀú£¬·ñÔòÕÒ³öÏÂÒ»½áµã
+	for (int w = FirstAdj(G, v); w >= 0; w = NextAdj(G, v, w)){ //å…ˆæ‰¾å‡ºä¸è¯¥ç‚¹ç›¸è¿çš„ç¬¬ä¸€ä¸ªç»“ç‚¹ï¼Œæœªè¢«éå†åˆ™è¿›è¡Œéå†ï¼Œå¦åˆ™æ‰¾å‡ºä¸‹ä¸€ç»“ç‚¹
 		if (!visited[w])
-			DepthFirstSearch(G, w);				//µİ¹é±éÀú
+			DepthFirstSearch(G, w);				//é€’å½’éå†
 	}
 }
 
-//³õÊ¼»¯·ÃÎÊ±êÖ¾Êı×é
+//åˆå§‹åŒ–è®¿é—®æ ‡å¿—æ•°ç»„
 void InitVisited(){
 	for (int i = 0; i < MVNum; i++){
 		visited[i] = false;
 	}
 }
 /*
-²âÊÔÊı¾İ£º
+æµ‹è¯•æ•°æ®ï¼š
 1 2 3 4 5 6 7 8
 1 2 1 3 2 4 2 5 3 6 3 7 4 8 5 8 6 8 7 8
 */
