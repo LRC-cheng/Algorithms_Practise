@@ -21,7 +21,7 @@ char GetHead(LinkQueue);			//取队头元素
 
 int main(){
 	cout << "-------------链式队列------------" << endl;
-	cout << "测试符号匹配“'[',']','(',')','{','}'”，说明：Ctrl+Z结束输入; '#'结束测试！" << endl;
+	cout << "说明：Ctrl+Z结束输入; '#'结束测试！" << endl;
 	LinkQueue KeyBoard;
 	InitQueue(KeyBoard);
 	char x;
