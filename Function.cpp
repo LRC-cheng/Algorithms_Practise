@@ -2,187 +2,189 @@
 using namespace std;
 
 int Strassen(int **A, int **B, int **Result, int Size){
-	if (Size == 1){
-		Result[0][0] = A[0][0] * B[0][0];
-		return 0;
-	}
-	int NewSize = Size / 2;
-	/*·Ö¿é¾ØÕó*/
-	int **A11, **A12, **A21, **A22;
-	int **B11, **B12, **B21, **B22;
-	int **C11, **C12, **C21, **C22;
+ if (Size == 1){
+  //ç›´æ¥è®¡ç®—C11
+  Result[0][0] = A[0][0] * B[0][0];
+  return 0;
+ }
+ int NewSize = Size / 2;
+ /*åˆ†å—çŸ©é˜µ*/
+ int **A11, **A12, **A21, **A22;
+ int **B11, **B12, **B21, **B22;
+ int **C11, **C12, **C21, **C22;
 
-	int **P1, **P2, **P3, **P4, **P5, **P6, **P7;
-	/*´æ·ÅÊı×éA¡¢B£¨i¡¢j£©µÄÁÙÊ±±äÁ¿*/
-	int **AResult, **BResult;
+ int **P1, **P2, **P3, **P4, **P5, **P6, **P7;
+ /*å­˜æ”¾æ•°ç»„Aã€Bï¼ˆiã€jï¼‰çš„ä¸´æ—¶å˜é‡*/
+ int **AResult, **BResult;
 
-	A11 = new int*[NewSize];
-	A12 = new int*[NewSize];
-	A21 = new int*[NewSize];
-	A22 = new int*[NewSize];
+ A11 = new int*[NewSize];
+ A12 = new int*[NewSize];
+ A21 = new int*[NewSize];
+ A22 = new int*[NewSize];
 
-	B11 = new int*[NewSize];
-	B12 = new int*[NewSize];
-	B21 = new int*[NewSize];
-	B22 = new int*[NewSize];
+ B11 = new int*[NewSize];
+ B12 = new int*[NewSize];
+ B21 = new int*[NewSize];
+ B22 = new int*[NewSize];
 
-	C11 = new int*[NewSize];
-	C12 = new int*[NewSize];
-	C21 = new int*[NewSize];
-	C22 = new int*[NewSize];
+ C11 = new int*[NewSize];
+ C12 = new int*[NewSize];
+ C21 = new int*[NewSize];
+ C22 = new int*[NewSize];
 
-	P1 = new int*[NewSize];
-	P2 = new int*[NewSize];
-	P3 = new int*[NewSize];
-	P4 = new int*[NewSize];
-	P5 = new int*[NewSize];
-	P6 = new int*[NewSize];
-	P7 = new int*[NewSize];
+ P1 = new int*[NewSize];
+ P2 = new int*[NewSize];
+ P3 = new int*[NewSize];
+ P4 = new int*[NewSize];
+ P5 = new int*[NewSize];
+ P6 = new int*[NewSize];
+ P7 = new int*[NewSize];
 
-	AResult = new int*[NewSize];
-	BResult = new int*[NewSize];
+ AResult = new int*[NewSize];
+ BResult = new int*[NewSize];
 
-	for (int i = 0; i < NewSize; i++)
-	{
-		A11[i] = new int[NewSize];
-		A12[i] = new int[NewSize];
-		A21[i] = new int[NewSize];
-		A22[i] = new int[NewSize];
+ for (int i = 0; i < NewSize; i++)
+ {
+  A11[i] = new int[NewSize];
+  A12[i] = new int[NewSize];
+  A21[i] = new int[NewSize];
+  A22[i] = new int[NewSize];
 
-		B11[i] = new int[NewSize];
-		B12[i] = new int[NewSize];
-		B21[i] = new int[NewSize];
-		B22[i] = new int[NewSize];
+  B11[i] = new int[NewSize];
+  B12[i] = new int[NewSize];
+  B21[i] = new int[NewSize];
+  B22[i] = new int[NewSize];
 
-		C11[i] = new int[NewSize];
-		C12[i] = new int[NewSize];
-		C21[i] = new int[NewSize];
-		C22[i] = new int[NewSize];
+  C11[i] = new int[NewSize];
+  C12[i] = new int[NewSize];
+  C21[i] = new int[NewSize];
+  C22[i] = new int[NewSize];
 
-		P1[i] = new int[NewSize];
-		P2[i] = new int[NewSize];
-		P3[i] = new int[NewSize];
-		P4[i] = new int[NewSize];
-		P5[i] = new int[NewSize];
-		P6[i] = new int[NewSize];
-		P7[i] = new int[NewSize];
+  P1[i] = new int[NewSize];
+  P2[i] = new int[NewSize];
+  P3[i] = new int[NewSize];
+  P4[i] = new int[NewSize];
+  P5[i] = new int[NewSize];
+  P6[i] = new int[NewSize];
+  P7[i] = new int[NewSize];
 
-		AResult[i] = new int[NewSize];
-		BResult[i] = new int[NewSize];
+  AResult[i] = new int[NewSize];
+  BResult[i] = new int[NewSize];
 
 
-	}
+ }
 
-	//¶Ô·Ö¿é¾ØÕó¸³Öµ
-	for (int i = 0; i < NewSize; i++)
-	{
-		for (int j = 0; j < NewSize; j++)
-		{
-			A11[i][j] = A[i][j];
-			A12[i][j] = A[i][j + NewSize];
-			A21[i][j] = A[i + NewSize][j];
-			A22[i][j] = A[i + NewSize][j + NewSize];
+ //å¯¹åˆ†å—çŸ©é˜µèµ‹å€¼
+ for (int i = 0; i < NewSize; i++)
+ {
+  for (int j = 0; j < NewSize; j++)
+  {
+   A11[i][j] = A[i][j];
+   A12[i][j] = A[i][j + NewSize];
+   A21[i][j] = A[i + NewSize][j];
+   A22[i][j] = A[i + NewSize][j + NewSize];
 
-			B11[i][j] = B[i][j];
-			B12[i][j] = B[i][j + NewSize];
-			B21[i][j] = B[i + NewSize][j];
-			B22[i][j] = B[i + NewSize][j + NewSize];
+   B11[i][j] = B[i][j];
+   B12[i][j] = B[i][j + NewSize];
+   B21[i][j] = B[i + NewSize][j];
+   B22[i][j] = B[i + NewSize][j + NewSize];
 
-		}
-	}
+  }
+ }
 
-	//¼ÆËãP1 = A11*(B12-B22)
-	Sub(B12, B22, BResult, NewSize);
-	Strassen(A11, BResult, P1, NewSize);
+ //è®¡ç®—P1 = A11*(B12-B22)
+ Sub(B12, B22, BResult, NewSize);
+ Strassen(A11, BResult, P1, NewSize);
 
-	//¼ÆËãP2 = (A11+A12)*B22
-	Add(A11, A12, AResult, NewSize);
-	Strassen(AResult, B22, P2, NewSize);
+ //è®¡ç®—P2 = (A11+A12)*B22
+ Add(A11, A12, AResult, NewSize);
+ Strassen(AResult, B22, P2, NewSize);
 
-	//¼ÆËãP3 = (A21+A22)*B11
-	Add(A21, A22, AResult, NewSize);
-	Strassen(AResult, B11, P3, NewSize);
+ //è®¡ç®—P3 = (A21+A22)*B11
+ Add(A21, A22, AResult, NewSize);
+ Strassen(AResult, B11, P3, NewSize);
 
-	//¼ÆËãP4 = A22*(B21-B11)
-	Sub(B21, B11, BResult, NewSize);
-	Strassen(A22, BResult, P4, NewSize);
+ //è®¡ç®—P4 = A22*(B21-B11)
+ Sub(B21, B11, BResult, NewSize);
+ Strassen(A22, BResult, P4, NewSize);
 
-	//¼ÆËãP5 = (A11+A22)*(B11+B22)
-	Add(A11, A22, AResult, NewSize);
-	Add(B11, B22, BResult, NewSize);
-	Strassen(AResult, BResult, P5, NewSize);
+ //è®¡ç®—P5 = (A11+A22)*(B11+B22)
+ Add(A11, A22, AResult, NewSize);
+ Add(B11, B22, BResult, NewSize);
+ Strassen(AResult, BResult, P5, NewSize);
 
-	//¼ÆËãP6 = (A11-A21)*(B11+B12)
-	Sub(A11, A21, AResult, NewSize);
-	Add(B11, B12, BResult, NewSize);
-	Strassen(AResult, BResult, P6, NewSize);
+ //è®¡ç®—P6 = (A12-A22)*(B21+B22)
+ Sub(A12, A22, AResult, NewSize);
+ Add(B21, B22, BResult, NewSize);
+ Strassen(AResult, BResult, P6, NewSize);
 
-	//¼ÆËãP7 = (A11-A21)*(B11+B12)
-	Sub(A11, A21, AResult, NewSize);
-	Add(B11, B12, BResult, NewSize);
-	Strassen(AResult, BResult, P7, NewSize);
+ //è®¡ç®—P7 = (A11-A21)*(B11+B12)
+ Sub(A11, A21, AResult, NewSize);
+ Add(B11, B12, BResult, NewSize);
+ Strassen(AResult, BResult, P7, NewSize);
 
-	//¼ÆËãC11£¬C12£¬C21£¬C22
-	//C11 = P5 + P4 - P2 + P6;
-	Add(P5, P4, C11, NewSize);
-	Sub(C11, P2, C11, NewSize);
-	Add(C11, P6, C11, NewSize);
+ //è®¡ç®—C11ï¼ŒC12ï¼ŒC21ï¼ŒC22
+ //C11 = P5 + P4 - P2 + P6;
+ Add(P5, P4, AResult, NewSize);
+ Sub(AResult, P2, BResult, NewSize);
+ Add(BResult, P6, C11, NewSize);
 
-	//C12=P1+P2
-	Add(P1, P2, C12, NewSize);
+ //C12=P1+P2
+ Add(P1, P2, C12, NewSize);
 
-	//C21=P3+P4
-	Add(P3, P4, C21, NewSize);
+ //C21=P3+P4
+ Add(P3, P4, C21, NewSize);
 
-	//C22=P5+P1-P3-P7
-	Add(P5, P1, C22, NewSize);
-	Sub(C22, P3, C22, NewSize);
-	Sub(C22, P7, C22, NewSize);
+ //C22=P5+P1-P3-P7
+ Add(P5, P1, C22, NewSize);
+ Sub(C22, P3, C22, NewSize);
+ Sub(C22, P7, C22, NewSize);
 
-	//ºÏ²¢C11£¬C12£¬C21£¬C22
-	for (int i = 0; i < NewSize; i++)
-	{
-		for (int j = 0; j < NewSize; j++)
-		{
-			Result[i][j] = C11[i][j];
-			Result[i][j + NewSize] = C12[i][j];
-			Result[i + NewSize][j] = C21[i][j];
-			Result[i + NewSize][j + NewSize] = C22[i][j];
-		}
-	}
+ //åˆå¹¶C11ï¼ŒC12ï¼ŒC21ï¼ŒC22
+ for (int i = 0; i < NewSize; i++)
+ {
+  for (int j = 0; j < NewSize; j++)
+  {
+   Result[i][j] = C11[i][j];
+   Result[i][j + NewSize] = C12[i][j];
+   Result[i + NewSize][j] = C21[i][j];
+   Result[i + NewSize][j + NewSize] = C22[i][j];
+  }
+ }
 
-	//É¾³ıÊı×é£¬»ØÊÕ×ÊÔ´
-	for (int i = 0; i < NewSize; i++){
-		delete[] A11[i]; delete[] A12[i]; delete[] A21[i]; delete[] A22[i];
-		delete[] B11[i]; delete[] B12[i]; delete[] B21[i]; delete[] B22[i];
-		delete[] C11[i]; delete[] C12[i]; delete[] C21[i]; delete[] C22[i];
-		delete[] P1[i]; delete[] P2[i]; delete[] P3[i]; delete[] P4[i]; delete[] P5[i]; delete[] P6[i]; delete[] P7[i];
-		delete[] AResult[i]; delete[] BResult[i];
-	}
-	delete[] A11; delete[] A12; delete[] A21; delete[] A22;
-	delete[] B11; delete[] B12; delete[] B21; delete[] B22;
-	delete[] C11; delete[] C12; delete[] C21; delete[] C22;
-	delete[] P1; delete[] P2; delete[] P3; delete[] P4; delete[] P5; delete[] P6; delete[] P7;
-	delete[] AResult; delete[] BResult;
-	return 0;
+ //åˆ é™¤æ•°ç»„ï¼Œå›æ”¶èµ„æº
+ for (int i = 0; i < NewSize; i++){
+  delete[] A11[i]; delete[] A12[i]; delete[] A21[i]; delete[] A22[i];
+  delete[] B11[i]; delete[] B12[i]; delete[] B21[i]; delete[] B22[i];
+  delete[] C11[i]; delete[] C12[i]; delete[] C21[i]; delete[] C22[i];
+  delete[] P1[i]; delete[] P2[i]; delete[] P3[i]; delete[] P4[i]; delete[] P5[i]; delete[] P6[i]; delete[] P7[i];
+  delete[] AResult[i]; delete[] BResult[i];
+ }
+ delete[] A11; delete[] A12; delete[] A21; delete[] A22;
+ delete[] B11; delete[] B12; delete[] B21; delete[] B22;
+ delete[] C11; delete[] C12; delete[] C21; delete[] C22;
+ delete[] P1; delete[] P2; delete[] P3; delete[] P4; delete[] P5; delete[] P6; delete[] P7;
+ delete[] AResult; delete[] BResult;
+ return 0;
 }
 
 
 
-//¾ØÕóÏà¼Ó
+
+//çŸ©é˜µç›¸åŠ 
 void Add(int **A, int **B, int **Q, int Size){
-	for (int i = 0; i < Size; i++){
-		for (int j = 0; j < Size; j++){
-			Q[i][j] = A[i][j] + B[i][j];
-		}
-	}
+ for (int i = 0; i < Size; i++){
+  for (int j = 0; j < Size; j++){
+   Q[i][j] = A[i][j] + B[i][j];
+  }
+ }
 }
 
-//¾ØÕóÏà¼õ
+//çŸ©é˜µç›¸å‡
 void Sub(int**A, int**B, int **Q, int Size){
-	for (int i = 0; i < Size; i++){
-		for (int j = 0; j < Size; j++){
-			Q[i][j] = A[i][j] - B[i][j];
-		}
-	}
+ for (int i = 0; i < Size; i++){
+  for (int j = 0; j < Size; j++){
+   Q[i][j] = A[i][j] - B[i][j];
+  }
+ }
 }
