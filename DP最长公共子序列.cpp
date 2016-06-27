@@ -1,3 +1,4 @@
+/*created by LRC-cheng*/
 #include<iostream>
 #define MAX 100
 using namespace std;
@@ -6,8 +7,8 @@ typedef struct table{
 	int length;
 	int direction;
 }table;
-void LCS_LENGTH(char[], int, char[], int, table**);		//¼ÆËãLCS³¤¶È
-void PRINT_LCS(table**, char[], int, int);			//¹¹ÔìLCS
+void LCS_LENGTH(char[], int, char[], int, table**);		//è®¡ç®—LCSé•¿åº¦
+void PRINT_LCS(table**, char[], int, int);			//æž„é€ LCS
 
 int main(){
 	char *x = new char[MAX];
@@ -21,7 +22,7 @@ int main(){
 	for (int i = 0; i < MAX; i++)
 		b[i] = new table[MAX];
 
-	cout << "ÊäÈëÁ½¸ö×Ö·û´®£¨¾ùÒÔ¡®#¡¯½áÊø£©£º";
+	cout << "è¾“å…¥ä¸¤ä¸ªå­—ç¬¦ä¸²ï¼ˆå‡ä»¥â€˜#â€™ç»“æŸï¼‰ï¼š";
 	for (int i=1;;i++){
 		cin >> x[i];
 		if (x[i] == '#'){
@@ -38,15 +39,19 @@ int main(){
 	}
 	LCS_LENGTH(x, m, y, n, b);
 	PRINT_LCS(b, x, m, n);
-
 	cout << endl;
+	delete[]x; delete[]y;
+	for (int i = 0; i < MAX; i++){
+		delete[]b[i];
+	}
+	delete[]b;
 	system("pause");
 	return 0;
 }
 
-//¼ÆËãLCS³¤¶È
+//è®¡ç®—LCSé•¿åº¦
 void LCS_LENGTH(char x[], int m, char y[], int n, table **b){
-	for (int i = 0; i <= m; i++)			//³õÊ¼»¯±í¸ñ
+	for (int i = 0; i <= m; i++)			//åˆå§‹åŒ–è¡¨æ ¼
 		for (int j = 0; j <= n; j++)
 			b[i][j].length = 0;
 
@@ -67,7 +72,7 @@ void LCS_LENGTH(char x[], int m, char y[], int n, table **b){
 		}
 	}
 }
-//¹¹ÔìLCS
+//æž„é€ LCS
 void PRINT_LCS(table **b, char x[], int m, int n){
 	if (m == 0 || n == 0)
 		return;
